@@ -64,9 +64,26 @@ export const postBlog = async (blog:any,tags:any[],user:any): Promise<boolean> =
     }
 }
 
+export const getBlogsForProfile = async (email:string): Promise<any> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const userResponse = await axios.get(`${baseUrl}/api/users/email/${email}`);
+    if(!userResponse.data.data){
+        return [];
+    }
+    const userId = userResponse.data.data["_id"];
+    const response = await axios.get(`${baseUrl}/api/blogs`);
+    if(!response.data.data){
+        return [];
+    }
+    return response.data.data.filter((blog:any) => blog.author_id === userId);
+}
+
 export const getBlogs = async (): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await axios.get(`${baseUrl}/api/blogs`);
+    if(!response.data.data){
+        return [];
+    }
     return response.data.data;
 }
 
