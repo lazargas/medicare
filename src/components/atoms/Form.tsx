@@ -6,7 +6,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import placeholder from '@/assets/Images/placeholder.jpg';
 import Image from 'next/image';
 import { set } from 'mongoose';
-import { Audio } from 'react-loader-spinner'
+import { DNA } from 'react-loader-spinner'
+
+
 
 interface FormProps {
     user: any
@@ -23,6 +25,7 @@ const Form: React.FC<FormProps> = ({ user }) => {
     const [tagId, setTagId] = useState<any>([]);
     const { state } = useContext(BlogContext);
     const [loader, setLoader] = useState<boolean>(false);
+
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         try {
@@ -70,8 +73,15 @@ const Form: React.FC<FormProps> = ({ user }) => {
     return (
         <>
             {
-                loader ? <Audio /> :
-                    status ? <div className="bg-green-200 p-4 rounded-lg">Blog successfully created</div> :
+                loader ? <DNA
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="dna-loading"
+                wrapperStyle={{}}
+                wrapperClass="dna-wrapper"
+                /> :
+                    status ? <div className="bg-[#10AD3E] text-white font-semibold text-[1.25rem] p-4 rounded-lg">Blog successfully created</div> :
                         <form
                             className="flex flex-col p-6 gap-[0.25rem] bg-white shadow-md rounded-lg w-full max-w-md"
                             onSubmit={handleSubmit}

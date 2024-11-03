@@ -93,3 +93,9 @@ export const getTags = async (): Promise<any> => {
     return response.data.data;
 }
 
+export const getUserByEmail = async (email:string): Promise<any> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await axios.get(`${baseUrl}/api/users/email/${email}`);
+    return response.data.data;
+}
+

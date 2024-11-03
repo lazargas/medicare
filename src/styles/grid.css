@@ -2,7 +2,7 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
-    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
   }
 
   .title {
@@ -10,12 +10,14 @@
     text-align: center;
     margin-bottom: 30px;
     color: #333;
+    font-weight: 500;
   }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 1.5rem;
+    
   }
 
   .card {

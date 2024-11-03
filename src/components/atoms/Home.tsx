@@ -1,17 +1,21 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useState,memo } from "react";
 import { getBlogs } from "@/lib/api";
-import { Audio } from "react-loader-spinner";
-import Link from "next/link";
+import {  DNA } from "react-loader-spinner";
+import Grid from "./Grid";
 
 
-export default function HomePage(props: any) {
+ function HomePage(props: any) {
   const [blogs, setBlogs] = useState<any>([]);
   const [loader, setLoader] = useState<boolean>(false);
   const {user,title} = props; 
   async function fetchBlogs() {
       const response = await getBlogs();
-      setBlogs(response);
+      if(title==="Editorial")
+      setBlogs(response.slice(0,Math.min(response.length,4)));
+      else{
+        setBlogs(response);
+    }
   }
 
   useEffect(() => {
@@ -29,30 +33,20 @@ export default function HomePage(props: any) {
     <>
 
       <div className="container">
-        <h1 className="title">{title}</h1>
         {
           loader || blogs.length===0 ?
             <div className=" h-[80dvh] w-full flex justify-center items-center" >
-              <Audio />
+             <DNA
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+  />
             </div>
             :
-            <div className="grid">
-              {blogs.map((blog: any) => (
-                <Link key={blog._id} href={`/blog/${blog._id}`}>
-                  <div className="card">
-                    <img
-                      src={blog.thumbnail}
-                      alt="thumbnail"
-                      className="thumbnail"
-                    />
-                    <div className="content">
-                      <h2 className="blog-title">{blog.title}</h2>
-                      <p className="blog-content">{blog.content}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+           <Grid blogs={blogs} title={title} />
         }
         <style jsx>{`
   .container {
@@ -121,3 +115,4 @@ export default function HomePage(props: any) {
   );
 }
 
+export default memo(HomePage);
