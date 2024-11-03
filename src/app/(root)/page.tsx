@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getBlogs } from "@/lib/api";
 import { Audio } from "react-loader-spinner";
+import Link from "next/link";
 
 export default function Home() {
   const [blogs, setBlogs] = useState<any>([]);
@@ -11,8 +12,8 @@ export default function Home() {
   async function fetchBlogs() {
     setTimeout(async () => {
       const response = await getBlogs();
-    setBlogs(response);
-     }, 2000);
+      setBlogs(response);
+    }, 2000);
   }
 
   useEffect(() => {
@@ -28,28 +29,34 @@ export default function Home() {
 
   return (
     <>
-      
-          <div className="container">
-            <h1 className="title">Blog Collection</h1>
-            {
-        loader ? <Audio /> :
+
+      <div className="container">
+        <h1 className="title">Blog Collection</h1>
+        {
+          loader || blogs.length===0 ?
+            <div className=" h-[80dvh] w-full flex justify-center items-center" >
+              <Audio />
+            </div>
+            :
             <div className="grid">
               {blogs.map((blog: any) => (
-                <div key={blog._id} className="card">
-                  <img
-                    src={blog.thumbnail}
-                    alt="thumbnail"
-                    className="thumbnail"
-                  />
-                  <div className="content">
-                    <h2 className="blog-title">{blog.title}</h2>
-                    <p className="blog-content">{blog.content}</p>
+                <Link key={blog._id} href={`/blog/${blog._id}`}>
+                  <div className="card">
+                    <img
+                      src={blog.thumbnail}
+                      alt="thumbnail"
+                      className="thumbnail"
+                    />
+                    <div className="content">
+                      <h2 className="blog-title">{blog.title}</h2>
+                      <p className="blog-content">{blog.content}</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
-            }
-            <style jsx>{`
+        }
+        <style jsx>{`
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -108,8 +115,8 @@ export default function Home() {
     -webkit-line-clamp: 3; /* Number of lines to show */
   }
 `}</style>
-          </div>
-      
+      </div>
+
     </>
   );
 }

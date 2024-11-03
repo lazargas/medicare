@@ -1,0 +1,28 @@
+.blog-container {
+    max-width: 100dvw;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .blog-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .blog-thumbnail {
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .blog-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .blog-content {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+  }
