@@ -4,7 +4,7 @@ import Blog from '@/lib/models/Blog';
 import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest, context: any) {
+export async function GET(req: Request, context: any) {
   const { id } = await context.params;
 
   try {
@@ -41,7 +41,7 @@ export async function PUT(req: Request, context: any) {
   }
 }
 
-export async function DELETE(req: NextApiRequest, context: any) {
+export async function DELETE(req: Request, context: any) {
   const { id } = await context.params;
 
   try {

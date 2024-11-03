@@ -1,10 +1,10 @@
 // pages/api/blogs/index.ts
+import { auth } from '@/auth';
 import dbConnect from '@/lib/dbConnect';
 import Blog from '@/lib/models/Blog';
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     await dbConnect();
     const blogs = await Blog.find({});
@@ -15,32 +15,38 @@ export async function GET(req: NextApiRequest) {
 }
 
 export async function POST(req: Request) {
-    try {
-      await dbConnect();
-      const body = await req.json();
-      const newBlog = new Blog({
-        ...body,
-        createdAt : new Date().toISOString,
-        updatedAt : new Date().toISOString,
-        views:0,
-      });
-      const blog = await Blog.create(newBlog);
-      return NextResponse.json({ success: true, data: blog });
-    } catch (error) {
-      return NextResponse.json({ success: false, error: (error as Error).message });
+  try {
+    await dbConnect();
+    const body = await req.formData();
+    const data = {
+      thumbnail:body.get('thumbnail') as string,
+      title: body.get('title') as string,
+      content: body.get('content') as string,
+      tags: JSON.parse(body.get('tags') as string),
+      author_id: body.get('author_id') as string,
+      views: parseInt(body.get('views') as string),
+      created_at: new Date(body.get('created_at') as string),
+      updated_at: new Date(body.get('updated_at') as string), 
     }
-  };
-  
-  
-  export async function DELETE(req: NextApiRequest) {
-    try {
-      await dbConnect();
-      const blog = await Blog.deleteMany({});
-      return NextResponse.json({ success: true, data: blog });
-    } catch (error) {
-      return NextResponse.json({ success: false, error: (error as Error).message });
-    }
-  };
-  
-  
-  
+    const newBlog = new Blog({
+      ...data
+    });
+    const blog = await Blog.create(newBlog);
+    return NextResponse.json({ success: true, data: blog });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: (error as Error).message });
+  }
+};
+
+
+export async function DELETE(req: Request) {
+  try {
+    await dbConnect();
+    const blog = await Blog.deleteMany({});
+    return NextResponse.json({ success: true, data: blog });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: (error as Error).message });
+  }
+};
+
+

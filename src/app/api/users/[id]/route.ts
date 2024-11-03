@@ -1,7 +1,6 @@
 
 import dbConnect from '@/lib/dbConnect';
 import User from '@/lib/models/User';
-import { NextApiRequest } from 'next';
 import { NextResponse, NextRequest } from 'next/server';
 
 type Data = {
@@ -10,7 +9,7 @@ type Data = {
   error?: string;
 };
 
-export async function GET(req: NextApiRequest, context: any) {
+export async function GET(req: Request, context: any) {
 
   try {
     const { id } = await context.params;
@@ -30,13 +29,13 @@ export async function GET(req: NextApiRequest, context: any) {
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
+export async function PUT(req: Request, context: any) {
   const { id } = await context.params;
   try {
     await dbConnect();
     const body = await req.json();
     const updateData = {
-      ...body
+      ...body,
     };
     const user = await User.findByIdAndUpdate(
       id,
@@ -62,7 +61,7 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
   }
 }
 
-export async function DELETE(req: NextApiRequest,context:any) {
+export async function DELETE(req: Request,context:any) {
   const { id } = await context.params;
 
   try {

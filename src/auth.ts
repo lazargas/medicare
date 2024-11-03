@@ -1,4 +1,3 @@
-
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import { postUser } from "@/lib/api";

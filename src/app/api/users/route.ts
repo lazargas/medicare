@@ -1,5 +1,4 @@
 // pages/api/users/index.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/lib/models/User';
 import { NextRequest, NextResponse } from 'next/server';
@@ -17,7 +16,7 @@ type Data = {
   error?: string;
 };
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     await dbConnect();
     const users = await User.find({});
@@ -51,7 +50,7 @@ export async function POST(req: Request) {
 };
 
 
-export async function DELETE(req: NextApiRequest) {
+export async function DELETE(req: Request) {
   try {
     await dbConnect();
     const user = await User.deleteMany({});

@@ -1,10 +1,9 @@
 // pages/api/tags/index.ts
 import dbConnect from '@/lib/dbConnect';
 import Tag from '@/lib/models/Tag';
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     await dbConnect();
     const tags = await Tag.find({});
@@ -24,3 +23,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 400 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    await dbConnect();
+    const tag = await Tag.deleteMany({});
+    return NextResponse.json({ success: true, data: tag });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: (error as Error).message });
+  }
+};
