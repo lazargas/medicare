@@ -30,7 +30,6 @@ export async function POST(req: Request) {
   try {
     await dbConnect();
     const { name, email, image, blogs } = await req.json();
-    console.log(name, email, image, blogs);
     
   
     if (!name || !email) {

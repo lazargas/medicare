@@ -47,6 +47,8 @@ export default async function BlogPage(context: any) {
     tags: blogData.tags.map((tag:any) => tag.name), // Assuming tags have a 'name' property
     author: blogData.author_id.name, // Assuming author has a 'name' field
   };
+
+
   return (
     <>
     <Navbar/>
@@ -69,4 +71,6 @@ export default async function BlogPage(context: any) {
     </>
   );
 }
+
+
 

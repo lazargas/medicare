@@ -25,8 +25,8 @@ export async function POST(req: Request) {
       tags: JSON.parse(body.get('tags') as string),
       author_id: body.get('author_id') as string,
       views: parseInt(body.get('views') as string),
-      created_at: new Date(body.get('created_at') as string),
-      updated_at: new Date(body.get('updated_at') as string), 
+      created_at: new Date(body.get('created_at') as string).toLocaleDateString(),
+      updated_at: new Date(body.get('updated_at') as string).toLocaleDateString(), 
     }
     const newBlog = new Blog({
       ...data

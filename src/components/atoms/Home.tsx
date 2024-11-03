@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function HomePage(props: any) {
   const [blogs, setBlogs] = useState<any>([]);
   const [loader, setLoader] = useState<boolean>(false);
-  const {user} = props; 
+  const {user,title} = props; 
   async function fetchBlogs() {
       const response = await getBlogs();
       setBlogs(response);
@@ -29,7 +29,7 @@ export default function HomePage(props: any) {
     <>
 
       <div className="container">
-        <h1 className="title">Blog Collection</h1>
+        <h1 className="title">{title}</h1>
         {
           loader || blogs.length===0 ?
             <div className=" h-[80dvh] w-full flex justify-center items-center" >
@@ -56,9 +56,10 @@ export default function HomePage(props: any) {
         }
         <style jsx>{`
   .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
+   border-right: 1px solid #ddd;
   }
 
   .title {
@@ -72,6 +73,7 @@ export default function HomePage(props: any) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+     
   }
 
   .card {
@@ -89,7 +91,7 @@ export default function HomePage(props: any) {
 
   .thumbnail {
     width: 100%;
-    height: auto;
+    height: 200px;
     object-fit: cover;
   }
 
@@ -110,7 +112,7 @@ export default function HomePage(props: any) {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-line-clamp: 1; /* Number of lines to show */
   }
 `}</style>
       </div>

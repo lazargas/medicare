@@ -64,7 +64,7 @@ export const postBlog = async (blog:any,tags:any[],user:any): Promise<boolean> =
     }
 }
 
-export const getBlogsForProfile = async (email:string): Promise<any> => {
+export const getBlogsForProfile = async (email:string): Promise<any[]> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const userResponse = await axios.get(`${baseUrl}/api/users/email/${email}`);
     if(!userResponse.data.data){

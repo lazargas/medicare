@@ -13,7 +13,6 @@ export async function GET(req: Request, context: any) {
 
   try {
     const { id } = await context.params;
-    console.log(id);
     if (!id) {
       return NextResponse.json({ success: false, error: 'Please provide an id' }, {
       });

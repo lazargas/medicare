@@ -23,7 +23,7 @@ const Navbar = async (props: Props) => {
 
 
   return (
-    <nav className="flex w-full h-[40px] items-center justify-between p-[2rem] text-xl font-semibold" >
+    <nav className="flex w-full h-[80px] items-center justify-between p-[2rem] text-xl font-semibold" >
       <Link href="/"><Image src={logo} height={24} width={96} alt='logo' /></Link>
       {
         session && session?.user ?

@@ -2,6 +2,10 @@
     max-width: 100dvw;
     margin: 0 auto;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .blog-title {
@@ -13,6 +17,9 @@
   .blog-thumbnail {
     border-radius: 8px;
     margin-bottom: 20px;
+    height: 400px;
+    width: 100%;
+    object-fit:contain ;
   }
 
   .blog-meta {
@@ -26,3 +33,7 @@
     color: #333;
     line-height: 1.6;
   }
+
+
+
+  
