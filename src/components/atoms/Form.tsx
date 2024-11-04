@@ -94,7 +94,7 @@ const Form: React.FC<FormProps> = ({ user }) => {
                                         src={placeholder} alt="" /> : <img src={thumbnail} alt="uploaded image" />
                                 }
                                 <input
-                                    className=" self-start border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-[100%] self-start border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onChange={(e) => handleFileChange(e)}
                                     type="file" name="image" accept="image/*" required></input>
                             </label>
@@ -127,7 +127,7 @@ const Form: React.FC<FormProps> = ({ user }) => {
                             </label>
                             <button
                                 type="submit"
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
+                                className=" md:my-2 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
                             >
                                 Submit
                             </button>

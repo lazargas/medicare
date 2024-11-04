@@ -3,6 +3,7 @@ import Navbar from '@/components/atoms/Navbar';
 import Profile from '@/components/atoms/Profile';
 import SignOut from '@/components/atoms/SignOut';
 import { getBlogsForProfile } from '@/lib/api';
+import Link from 'next/link';
 import React from 'react'
 
 type Props = {}
@@ -19,8 +20,9 @@ const page = async (props: Props) => {
             {
                 session && session?.user ?
                     <>
-                        <div className='w-full h-auto flex items-center justify-end px-[2rem] font-semibold' >
+                        <div className='w-full md:hidden h-auto flex flex-col items-end justify-end px-[2rem] gap-[1rem] font-semibold' >
                             <SignOut />
+                            <Link className='text-xl' href="/create">Create Blog</Link>
                         </div>
                         <Profile user={session?.user} blogs={blogs} title="Your Posts" />
                     </>
