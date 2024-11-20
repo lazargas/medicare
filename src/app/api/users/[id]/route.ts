@@ -1,5 +1,5 @@
 
-import dbConnect from '@/lib/dbConnect';
+import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import User from '@/lib/models/User';
 import { NextResponse, NextRequest } from 'next/server';
 
@@ -17,8 +17,10 @@ export async function GET(req: Request, context: any) {
       return NextResponse.json({ success: false, error: 'Please provide an id' }, {
       });
     }
-    await dbConnect();
-    const user = await User.findById(id);
+    const connection:ConnectionObject = await dbConnect();  // Just need to ensure connection is established
+    const db = connection.db!;
+    const usersCollection = db.collection("Users");
+    const user = await usersCollection.findOne({user_id:id});
     if (!user) {
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
     }

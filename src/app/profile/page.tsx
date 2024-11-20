@@ -2,7 +2,7 @@ import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';
 import Profile from '@/components/atoms/Profile';
 import SignOut from '@/components/atoms/SignOut';
-import { getBlogsForProfile } from '@/lib/api';
+import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import Link from 'next/link';
 import React from 'react'
 
@@ -11,8 +11,10 @@ type Props = {}
 const page = async (props: Props) => {
     const session = await auth();
     let blogs = [];
+
     if (session && session?.user) {
-        blogs = await getBlogsForProfile(session?.user?.email!);
+        blogs = await getBlogsForProfile(session?.user.email!); 
+        console.log(blogs);
     }
     return (
         <>

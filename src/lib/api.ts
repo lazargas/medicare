@@ -5,10 +5,9 @@ import axios from "axios";
 export const postUser = async (user:any): Promise<void> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const body = {
-        name: user.name,
+        full_name: user.name,
         email: user.email,
-        image: user.image,
-        blogs: []
+        article_ids: []
     } 
     const data = await axios.post(`${baseUrl}/api/users`,{
      ...body
@@ -67,11 +66,11 @@ export const postBlog = async (blog:any,tags:any[],user:any): Promise<boolean> =
 export const getBlogsForProfile = async (email:string): Promise<any[]> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const userResponse = await axios.get(`${baseUrl}/api/users/email/${email}`);
-    if(!userResponse.data.data){
+    if(!userResponse.data.data.length){
         return [];
     }
-    const userId = userResponse.data.data["_id"];
-    const response = await axios.get(`${baseUrl}/api/blogs`);
+    const userId = userResponse.data.data["user_id"];
+    const response = await axios.get(`${baseUrl}/api/articles`);
     if(!response.data.data){
         return [];
     }
@@ -80,7 +79,7 @@ export const getBlogsForProfile = async (email:string): Promise<any[]> => {
 
 export const getBlogs = async (): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const response = await axios.get(`${baseUrl}/api/blogs`);
+    const response = await axios.get(`${baseUrl}/api/articles`);
     if(!response.data.data){
         return [];
     }
@@ -96,6 +95,21 @@ export const getTags = async (): Promise<any> => {
 export const getUserByEmail = async (email:string): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await axios.get(`${baseUrl}/api/users/email/${email}`);
+    return response.data.data;
+}
+
+export const getUserById = async (id:string): Promise<any> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await axios.get(`${baseUrl}/api/users/${id}`);
+    return response.data.data;
+}
+
+export const getArticleById = async (id:string): Promise<any> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await axios.get(`${baseUrl}/api/articles/${id}`);
+    if(!response.data.data){
+        return [];
+    }
     return response.data.data;
 }
 

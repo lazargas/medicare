@@ -1,29 +1,32 @@
-import mongoose from 'mongoose';
+import { Db, MongoClient } from 'mongodb';
+// import mongoose from 'mongoose';
 
-type ConnectionObject = {
+export type ConnectionObject = {
   isConnected?: number;
+  db?:Db;
 };
 
-const connection: ConnectionObject = {};
-
-async function dbConnect(): Promise<void> {
+const connection: ConnectionObject = {
   
-  if (connection.isConnected) {
+};
+
+async function dbConnect(): Promise<ConnectionObject> {
+  if (connection.db) {
     console.log('Already connected to the database');
-    return;
+    return connection;
   }
 
   try {
-   
-    const db = await mongoose.connect(process.env.MONGODB_URI || '', {});
-
-    connection.isConnected = db.connections[0].readyState;
-
+    const client = new MongoClient(process.env.MONGODB_URI || '');
+    await client.connect();
+    const db = client.db("medical_database");
+    // const db = await mongoose.connect();
+   // connection.isConnected = db.databaseName !== undefined;
+    connection.db = db;  // Store mongoose instance instead of connection
     console.log('Database connected successfully');
+    return connection;
   } catch (error) {
     console.error('Database connection failed:', error);
-
-   
     process.exit(1);
   }
 }

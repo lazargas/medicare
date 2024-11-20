@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 import Grid from './Grid';
 import { DNA } from 'react-loader-spinner';
+import "@/styles/profile.css"
 
 type Props = {
     user: any,
@@ -28,7 +29,9 @@ const Profile = (props: Props) => {
                 </div>
             </div>
             <div className='h-auto w-[80vw] flex items-center justify-center' >
-                <Grid blogs={blogs} title={title} />
+                {
+                    blogs.length===0 ? <h1 className="title">No Blogs Under Your Profile</h1>  : <Grid blogs={blogs} title={title} />
+                }
             </div>
         </div>
     )

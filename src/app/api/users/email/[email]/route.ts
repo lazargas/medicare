@@ -1,4 +1,4 @@
-import dbConnect from "@/lib/dbConnect";
+import dbConnect, { ConnectionObject } from "@/lib/dbConnect";
 import User from "@/lib/models/User";
 import { NextResponse } from "next/server";
 
@@ -10,10 +10,13 @@ export async function GET(req: Request, context: any) {
         return NextResponse.json({ success: false, error: 'Please provide an id' }, {
         });
       }
-      await dbConnect();
-      const user = await User.findOne({email:email});
+      const connection:ConnectionObject = await dbConnect();  // Just need to ensure connection is established
+      const db = connection.db!;
+      // Use Mongoose model directly
+      const articlesCollection = db.collection("Users");
+      let user = await articlesCollection.findOne({email:email});
       if (!user) {
-        return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
+        return NextResponse.json({ success: false, data:[]});
       }
       return NextResponse.json({ success: true, data: user });
     } catch (error) {
