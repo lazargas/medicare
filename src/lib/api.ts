@@ -5,9 +5,8 @@ import axios from "axios";
 export const postUser = async (user:any): Promise<void> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const body = {
-        full_name: user.name,
-        email: user.email,
-        article_ids: []
+        name: user.name,
+        email: user.email
     } 
     const data = await axios.post(`${baseUrl}/api/users`,{
      ...body
