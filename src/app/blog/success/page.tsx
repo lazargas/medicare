@@ -14,7 +14,6 @@ const page = async (props: Props) => {
 
     if (session && session?.user) {
         blogs = await getBlogsForProfile(session?.user.email!); 
-        
     }
     return (
         <>
@@ -22,11 +21,9 @@ const page = async (props: Props) => {
             {
                 session && session?.user ?
                     <>
-                        <div className='w-full md:hidden h-auto flex flex-col items-end justify-end px-[2rem] gap-[1rem] font-semibold' >
-                            <SignOut />
-                            <Link className='text-xl' href="/create">Create Blog</Link>
+                        <div className='w-full h-screen flex flex-col items-center justify-center px-[2rem] gap-[1rem] font-semibold' >
+                            <p className='text-xl text-[#008000] ' >You Have Successfully Created Article And It Is With Our Admin For Approval  ^_^</p>
                         </div>
-                        <Profile user={session?.user} blogs={blogs} title="Your Posts" />
                     </>
                     :
                     <div className='flex h-[80dvh] justify-center items-center m-[2.5rem] text-center' >

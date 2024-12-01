@@ -23,7 +23,7 @@ const Grid = (props: Props) => {
                         />
                         <div className="content">
                             <h2 className="blog-title">{blog.title}</h2>
-                            <p className="blog-content">{blog.content}</p>
+                            <p className="blog-content-grid">{blog.content}</p>
                         </div>
                     </div>
                 </Link>

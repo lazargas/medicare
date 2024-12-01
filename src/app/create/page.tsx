@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
 import Form from '@/components/atoms/Form'
 import Navbar from '@/components/atoms/Navbar'
+import CreateArticleForm from '@/components/Forms/CreateArticle'
 import { BlogContext } from '@/context/BlogContext'
 import React from 'react'
 
@@ -11,8 +12,8 @@ const page = async (props: Props) => {
   return (
     <>
       <Navbar />
-      <div className='flex h-[80dvh] justify-center items-center m-[2.5rem] ' >
-        <Form user={session?.user} />
+      <div className='flex justify-center items-center m-[2.5rem] ' >
+        <CreateArticleForm user={session?.user} />
       </div>
     </>
   )

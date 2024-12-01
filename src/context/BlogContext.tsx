@@ -1,21 +1,57 @@
 "use client"
 import { signIn, signOut } from '@/auth';
-import React, { createContext, ReactNode, useState } from 'react';
+import { getBlogs, getTags } from '@/lib/api';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
-// Define the initial state for your context
-interface BlogContextState {
-   
+// Define proper interfaces for your data
+interface Blog {
+  // Add your blog properties here
+  title: string;
+  content: string;
+  // ... other properties
 }
 
-export const BlogContext = createContext<any>({});
+interface Tag {
+  name: string;
+  category: string;
+}
 
-export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user,setUser] = useState({});
-    
+interface BlogContextState {
+  user: any;
+  setUser: (user: any) => void;
+  blogs: Blog[];
+  setBlogs: (blogs: Blog[]) => void;
+  tags: Tag[];
+}
 
-    return (
-        <BlogContext.Provider value={{user,setUser}}>
-            {children}
-        </BlogContext.Provider>
-    );
+// Initialize context with proper typing
+export const BlogContext = createContext<BlogContextState>({} as BlogContextState);
+
+export const BlogProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState({});
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  const fetchBlogsAndTags = async () => {
+    try {
+      const blogsData = await getBlogs();
+      console.log('Fetched blogs data:', blogsData); // Log the fetched data
+      setBlogs(blogsData);
+      const tagsData = await getTags();
+      setTags(tagsData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+ useEffect(()=>{
+    fetchBlogsAndTags();
+ },[])
+
+
+  return (
+    <BlogContext.Provider value={{ user, setUser, blogs, tags, setBlogs }}>
+      {children}
+    </BlogContext.Provider>
+  );
 };

@@ -1,5 +1,5 @@
 // pages/api/tags/[id].ts
-import dbConnect from '@/lib/dbConnect';
+import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import Tag from '@/lib/models/Tag';
 import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
@@ -8,12 +8,11 @@ export async function GET(req: Request, context: any) {
   const { id } = await context.params;
 
   try {
-    await dbConnect();
-    const tag = await Tag.findById(id);
-    if (!tag) {
-      return NextResponse.json({ success: false, error: 'Tag not found' }, { status: 404 });
-    }
-    return NextResponse.json({ success: true, data: tag });
+    const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
+    const db = connection.db!;
+    const tagsCollection = db.collection("Tags");
+    const tagsData = await tagsCollection.findOne({_id:id});
+    return NextResponse.json({ success: true, data: tagsData });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 400 });
   }

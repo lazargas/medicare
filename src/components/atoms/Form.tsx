@@ -23,7 +23,6 @@ const Form: React.FC<FormProps> = ({ user }) => {
     const [tags, setTags] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [tagId, setTagId] = useState<any>([]);
-    const { state } = useContext(BlogContext);
     const [loader, setLoader] = useState<boolean>(false);
 
 
@@ -35,7 +34,7 @@ const Form: React.FC<FormProps> = ({ user }) => {
                 setThumbnail(thumbnailString);
             }
         } catch (e: unknown) {
-            console.log(e);
+           
         }
         finally {
             setUploading(false);
@@ -62,7 +61,7 @@ const Form: React.FC<FormProps> = ({ user }) => {
             const response: boolean = await postBlog(blog, tags, user);
             setStatus(response);
         } catch (e: unknown) {
-            console.log(e);
+           
         }
         finally {
             setLoader(false);

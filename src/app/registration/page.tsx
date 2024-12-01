@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';
 import Profile from '@/components/atoms/Profile';
 import SignOut from '@/components/atoms/SignOut';
+import RegistrationForm from '@/components/Forms/Registration';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import Link from 'next/link';
 import React from 'react'
@@ -14,7 +15,7 @@ const page = async (props: Props) => {
 
     if (session && session?.user) {
         blogs = await getBlogsForProfile(session?.user.email!); 
-        
+       
     }
     return (
         <>
@@ -22,15 +23,11 @@ const page = async (props: Props) => {
             {
                 session && session?.user ?
                     <>
-                        <div className='w-full md:hidden h-auto flex flex-col items-end justify-end px-[2rem] gap-[1rem] font-semibold' >
-                            <SignOut />
-                            <Link className='text-xl' href="/create">Create Blog</Link>
-                        </div>
-                        <Profile user={session?.user} blogs={blogs} title="Your Posts" />
+                        <RegistrationForm user={session?.user} />
                     </>
                     :
                     <div className='flex h-[80dvh] justify-center items-center m-[2.5rem] text-center' >
-                        <h1 className='text-xl md:text-4xl font-semibold' >Please sign in to view your profile</h1>
+                        <h1 className='text-xl md:text-4xl font-semibold' >Please sign in to Complete registration</h1>
                     </div>
             }
 

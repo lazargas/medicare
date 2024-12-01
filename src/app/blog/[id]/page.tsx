@@ -1,7 +1,11 @@
 import "../blog.css";
 import Navbar from '@/components/atoms/Navbar';
 import Link from 'next/link';
-import { getArticleById, getUserById } from '@/lib/api';
+import { getArticleById, getBlogs, getUserById } from '@/lib/api';
+import BlogFormatter from "@/components/atoms/BlogContent";
+import Grid from "@/components/atoms/Grid";
+import { useContext } from "react";
+import { BlogContext } from "@/context/BlogContext";
 
 type BlogPageProps = {
   blog: {
@@ -20,9 +24,8 @@ type BlogPageProps = {
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
   const blogData = await getArticleById(id);
+  const blogs = await getBlogs();
   const userData = await getUserById(blogData.author_id);
-  console.log(blogData);
-  console.log(userData);
   const blog = {
     _id: blogData._id.toString(),
     thumbnail: blogData.thumbnail,
@@ -35,6 +38,7 @@ export default async function BlogPage(context: any) {
     author: userData.full_name,
     email: userData.email // Assuming author has a 'name' field
   };
+
   
   return (
     <>
@@ -48,13 +52,15 @@ export default async function BlogPage(context: any) {
             <span className='font-semibold text-[#10AD3E]' >
               Author: {blog.author}</span>
           </Link>
-          | <span>Views: {blog.views}</span> |
+          |
           <span>Published: {new Date(blog.created_at).toLocaleDateString()}</span>
         </p>
         <div className="blog-content">
-         {blog.content} 
+         <BlogFormatter content={blog.content}/>
         </div>
+        <Grid title="Related Content" blogs={blogs.slice(0,4)}  />
       </div>
+     
     </>
   );
 }
