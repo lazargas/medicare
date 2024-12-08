@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Medicare",
+  title: "Doctor News Daily",
   description: "Medicine News",
 };
 
