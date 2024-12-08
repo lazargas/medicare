@@ -11,9 +11,6 @@ export default async function Home() {
   const session = await auth();
   const blogs = await getBlogs();
   const filteredBlogs = blogs.filter((article:any)=>article.Public===true);
-  filteredBlogs.forEach((element:any) => {
-    console.log(element.Public)
-  });
   //md:w-[75%]
   return (
     <>

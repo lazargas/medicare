@@ -8,7 +8,7 @@ export const fetchCache = 'force-no-store';
 
 export default async function AdminPage(context: any) {
   const session = await auth();
-  const superUserEmail = process.env.NEXT_PUBLIC_SUPERUSER_EMAIL;
+  const superUserEmail = process.env.SUPERUSER_EMAIL;
   const blogs = await getBlogs();
   const filteredBlogs = blogs.filter((article: any) => article.Public === false);
   return (

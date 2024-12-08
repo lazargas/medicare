@@ -32,7 +32,6 @@ export async function PUT(req: Request,context:any) {
   try {
     const { id } = await context.params;
     const Article = await req.json();
-    console.log(Article);
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
     const articlesCollection = db.collection("Articles_v2");
