@@ -9,29 +9,9 @@ import SearchNav from "./SearchBar";
 
 
 function HomePage(props: any) {
-  const [blogs, setBlogs] = useState<any>([]);
+  const {blogs} = props;
   const [loader, setLoader] = useState<boolean>(false);
   const { user, title } = props;
-  async function fetchBlogs() {
-    const response = await getBlogs();
-    if (title === "Ads")
-      setBlogs(response.slice(0, Math.min(response.length, 4)));
-    else {
-      setBlogs(response);
-    }
-  }
- 
-
-  useEffect(() => {
-    try {
-      setLoader(true);
-      fetchBlogs();
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoader(false);
-    }
-  }, []);
   return (
     <>
       <div className="container">
