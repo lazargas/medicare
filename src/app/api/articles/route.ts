@@ -1,5 +1,6 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
@@ -18,6 +19,7 @@ export async function GET(req: Request) {
     }, { status: 500 });
   }
 }
+
 interface Breadcrumb {
   level: string;
   text: string;
@@ -71,6 +73,7 @@ export async function POST(req: Request) {
     const now = new Date();
     const newArticle = {
       ...articleData,
+      Public:false,
       created_at: articleData.created_at || now,
       updated_at: articleData.updated_at || now,
       views: articleData.views || 0,

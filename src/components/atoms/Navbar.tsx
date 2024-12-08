@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Image from 'next/image'
 import logo from '@/assets/Images/logo.svg'
 import Link from 'next/link'
@@ -25,4 +25,4 @@ const Navbar = async (props: Props) => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

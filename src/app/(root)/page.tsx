@@ -9,8 +9,11 @@ interface Tag {
 
 export default async function Home() {
   const session = await auth();
-  const userDAta = await getUserByEmail(session?.user?.email!);
   const blogs = await getBlogs();
+  const filteredBlogs = blogs.filter((article:any)=>article.Public===true);
+  filteredBlogs.forEach((element:any) => {
+    console.log(element.Public)
+  });
   //md:w-[75%]
   return (
     <>
@@ -18,7 +21,7 @@ export default async function Home() {
         <div className="w-full ">
      
           <HomePage
-            blogs={blogs}
+            blogs={filteredBlogs}
             user={session && session.user ? session.user : null}
             title="Trending Now"
           />

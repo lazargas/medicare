@@ -214,3 +214,18 @@ export async function postTags(tags: { name: string, category: string }[]): Prom
         throw error;
     }
 }
+
+export async function putArticlePublic(blog:any,id:string){
+   try{
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response  = await axios.put(`${baseUrl}/api/articles/${id}`,{
+         ...blog,
+    });
+    if(!response.data && !response.data.data)return;
+    return response.data.data;
+    } 
+    catch (error: any) {
+        console.error("Error in posting tags in api", error);
+        throw error;
+    }
+}

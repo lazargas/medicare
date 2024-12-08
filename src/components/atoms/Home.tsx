@@ -1,10 +1,8 @@
 "use client"
-import { useEffect, useState, memo, useContext } from "react";
-import { getBlogs } from "@/lib/api";
 import { DNA } from "react-loader-spinner";
 import Grid from "./Grid";
-import { BlogContext } from "@/context/BlogContext";
-import SearchNav from "./SearchBar";
+import { memo, useState } from "react";
+
 
 
 
@@ -12,6 +10,7 @@ function HomePage(props: any) {
   const {blogs} = props;
   const [loader, setLoader] = useState<boolean>(false);
   const { user, title } = props;
+
   return (
     <>
       <div className="container">
