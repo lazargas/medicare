@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
-    const tagsCollection = db.collection("Tags");
+    const tagsCollection = db.collection("Tags_v2");
     const tagsData = await tagsCollection.find().toArray();
     return NextResponse.json({
       success: true,
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       throw new Error('Database connection failed');
     }
     // Get the tags collection
-    const tagsCollection: Collection<Tag> = connection.db.collection('Tags');
+    const tagsCollection: Collection<Tag> = connection.db.collection('Tags_v2');
     // Check if tag already exists
     const existingTag = await tagsCollection.findOne({
       name: tagData.name

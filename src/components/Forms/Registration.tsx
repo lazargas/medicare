@@ -3,23 +3,23 @@ import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import axios from 'axios';
 
-const RegistrationForm = ({user}:any) => {
+const RegistrationForm = ({user,userData}:any) => {
   const [formData, setFormData] = useState({
     full_name: user.name ||'',
     email: user.email || '',
-    phone_number: '',
-    country: 'India',
-    state: '',
-    city: '',
-    work_category: '',
-    specialisation: '',
-    designation: '',
-    organization: '',
-    council_registration_name: '',
-    council_registration_number: '',
-    dont_remember: false,
-    terms_accepted: false,
-    privacy_policy_accepted: false
+    phone_number: userData.phone_number || '',
+    country: userData.country || 'India',
+    state: userData.state || '',
+    city: userData.city ||'',
+    work_category: userData.work_category || '',
+    specialisation:userData.specialisation ||  '',
+    designation: userData.designation || '',
+    organization:  userData.organization || '',
+    council_registration_name: userData.council_registration_name ||  '',
+    council_registration_number: userData.council_registration_number || '',
+    dont_remember: userData.dont_remember || false,
+    terms_accepted: userData.terms_accepted || false,
+    privacy_policy_accepted: userData.privacy_policy_accepted || false
   });
 
   const [error, setError] = useState('');

@@ -11,12 +11,12 @@ export default async function AuthorPage(context: any) {
     const session = await auth();
     const user = await getUserByEmail(author);
     let blogs = [];
-    blogs = await getBlogsForProfile(author);
+    blogs = await getBlogsForProfile(user.article_ids);
     return (
         <>
             <Navbar />
             {session?.user ? (
-                <Profile user={user} blogs={blogs} title="Posts" />
+                <Profile userData={user} currentUser={session?.user} user={user} blogs={blogs} title={`${user.full_name}'s Posts`} />
             ) : (
                 <div className='flex h-[80dvh] justify-center items-center m-[2.5rem]'>
                     <h1 className='text-4xl font-semibold'>Please sign in to view profile</h1>

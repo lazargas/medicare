@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
-    const articlesCollection = db.collection("Articles");
+    const articlesCollection = db.collection("Articles_v2");
     const articlesData = await articlesCollection.find({}).toArray();
     return NextResponse.json({
       success: true,
@@ -40,9 +40,7 @@ interface Article {
 }
 export async function POST(req: Request) {
   try {
-    // Parse the request body
     const articleData = await req.json();
-    // Validate required fields
     const requiredFields = ['title', 'content', 'author_id', 'URL'];
     const missingFields = requiredFields.filter(field => !articleData[field]);
     if (missingFields.length > 0) {
@@ -60,7 +58,7 @@ export async function POST(req: Request) {
       throw new Error('Database connection failed');
     }
     // Get the articles collection
-    const articlesCollection = connection.db.collection('Articles');
+    const articlesCollection = connection.db.collection('Articles_v2');
     // Check if article with same URL already exists
     const existingArticle = await articlesCollection.findOne({ URL: articleData.URL });
     if (existingArticle) {

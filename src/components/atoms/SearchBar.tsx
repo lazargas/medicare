@@ -80,7 +80,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags,...props }) => {
   const sortedCategories = Object.keys(groupedTags).sort();
 
   return (
-    <div className="w-full px-4 sm:px-8">
+    <div className="w-full px-[1.5rem]">
       {/* Search Bar */}
       <div className="relative mb-6">
         <div className="relative">
@@ -138,7 +138,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags,...props }) => {
       </div>
 
       {/* Categories - Desktop */}
-      <div className="hidden md:flex flex-wrap gap-6 p-4 bg-white rounded-lg">
+      <div className="hidden md:flex flex-wrap gap-6 bg-white rounded-lg">
         {sortedCategories.map((category) => (
           <div key={category} className="group relative">
             <div className="cursor-pointer py-2 px-3 hover:bg-gray-50 rounded-md transition-colors">

@@ -6,7 +6,7 @@ export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();
     const db = connection.db!;
-    const articlesCollection = db.collection("Articles");
+    const articlesCollection = db.collection("Articles_v2");
     // Query the article by `_id`
     const articlesData = await articlesCollection.find({}).toArray();
     // Handle case where no article is found

@@ -13,9 +13,10 @@ const page = async (props: Props) => {
     let blogs = [];
 
     if (session && session?.user) {
-        blogs = await getBlogsForProfile(session?.user.email!); 
-        
+        const user = await getUserByEmail(session?.user.email!);
+        blogs = await getBlogsForProfile(user.article_ids); 
     }
+    const userData = getUserByEmail(session?.user?.email!);
     return (
         <>
             <Navbar />
@@ -26,7 +27,7 @@ const page = async (props: Props) => {
                             <SignOut />
                             <Link className='text-xl' href="/create">Create Blog</Link>
                         </div>
-                        <Profile user={session?.user} blogs={blogs} title="Your Posts" />
+                        <Profile userData={userData} currentUser={session?.user} user={session?.user} blogs={blogs} title="Your Posts" />
                     </>
                     :
                     <div className='flex h-[80dvh] justify-center items-center m-[2.5rem] text-center' >

@@ -11,6 +11,10 @@ export const postUser = async (user: any): Promise<void> => {
             name: user.name,
             email: user.email
         }
+        const response = await axios.get(`${baseUrl}/api/users/email/${user.email}`);
+        if(response.data && response.data.data){
+            
+        }
         const data = await axios.post(`${baseUrl}/api/users`, {
             ...body
         });
@@ -68,18 +72,17 @@ export const postBlog = async (blog: any, tags: any[], user: any): Promise<boole
     }
 }
 
-export const getBlogsForProfile = async (email: string): Promise<any[]> => {
+export const getBlogsForProfile = async (article_ids: any): Promise<any[]> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const userResponse = await axios.get(`${baseUrl}/api/users/email/${email}`);
-    if (!userResponse.data.data.length) {
-        return [];
-    }
-    const userId = userResponse.data.data["user_id"];
+    const blogs = [];
     const response = await axios.get(`${baseUrl}/api/articles`);
-    if (!response.data.data) {
-        return [];
+    const articles = response.data.data;
+    for(const article of articles){
+        if(article_ids.includes(article._id.toString())){
+            blogs.push(article);
+        }
     }
-    return response.data.data.filter((blog: any) => blog.author_id === userId);
+    return blogs;
 }
 
 export const getBlogs = async (): Promise<any> => {
@@ -104,9 +107,9 @@ export const getUserByEmail = async (email: string): Promise<any> => {
 }
 
 export const getUserById = async (id: string): Promise<any> => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const response = await axios.get(`${baseUrl}/api/users/${id}`);
-    return response.data.data;
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await axios.get(`${baseUrl}/api/users/${id}`);
+        return response.data.data;
 }
 
 export const getArticleById = async (id: string): Promise<any> => {
@@ -115,7 +118,7 @@ export const getArticleById = async (id: string): Promise<any> => {
     if (!response.data.data) {
         return [];
     }
-    return response.data.data[0];
+    return response.data.data;
 }
 
 // utils/uploadToS3.ts
@@ -169,17 +172,45 @@ export async function uploadToS3(file: File, type: 'image' | 'thumbnail') {
     }
 }
 
-export async function getTagIdByName(name:string){
-    try{
+export async function getTagIdByName(name: string) {
+    try {
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const response = await axios.get(`${baseUrl}/api/tags/name/${name}`);
         if (!response.data.data) {
             return [];
         }
         return response.data.data[0]._id;
-        
+
     }
-    catch(e:any){
+    catch (e: any) {
         console.error("Error in getting tag Id by name");
+    }
+}
+
+export async function postTags(tags: { name: string, category: string }[]): Promise<string[]> {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const tagIds: string[] = [];
+        for (const tag of tags) {
+            if (!tag.name) {
+                continue;
+            }
+            const existingTagResponse = await axios.get(`${baseUrl}/api/tags/name/${tag.name}`);
+            if (existingTagResponse.data.data && existingTagResponse.data.data[0] && existingTagResponse.data.data[0]._id && tag.category === existingTagResponse.data.data[0].category) {
+                tagIds.push(existingTagResponse.data.data[0]._id);
+            }
+            else {
+                const response = await axios.post(`${baseUrl}/api/tags`, {
+                    ...tag
+                });
+                if (response.data && response.data.data._id) {
+                    tagIds.push(response.data.data._id);
+                }
+            }
+        }
+        return tagIds;
+    } catch (error: any) {
+        console.error("Error in posting tags in api", error);
+        throw error;
     }
 }

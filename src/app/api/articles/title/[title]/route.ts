@@ -4,12 +4,12 @@ import { ObjectId } from 'mongodb'; // Ensure you have mongodb installed and imp
 
 export async function GET(req: Request, context: any) {
   try {
-    const { id } = await context.params;
+    const { title } = await context.params;
     const connection: ConnectionObject = await dbConnect();
     const db = connection.db!;
     const articlesCollection = db.collection("Articles_v2");
-    const objectId = new ObjectId(id);
-    let articlesData = await articlesCollection.findOne({_id:objectId});
+    let articlesData = await articlesCollection.find({title:title}).toArray();
+    const articles  = await articlesCollection.find({}).toArray();
     if (!articlesData) {
       return NextResponse.json({
         success: false,

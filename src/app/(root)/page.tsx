@@ -11,13 +11,9 @@ interface Tag {
 export default async function Home() {
   const session = await auth();
   const userDAta = await getUserByEmail(session?.user?.email!);
-  const tags = await getTags();
-  const blogs = await getBlogs();
-  console.log(userDAta); 
   //md:w-[75%]
   return (
     <>
-     <SearchNav tags={tags} blogs={blogs} />
       <div className="flex flex-col md:flex-row w-full h-auto">
         <div className="w-full ">
      

@@ -3,6 +3,7 @@ import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import Tag from '@/lib/models/Tag';
 import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 export async function GET(req: Request, context: any) {
   const { id } = await context.params;
@@ -10,8 +11,9 @@ export async function GET(req: Request, context: any) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
-    const tagsCollection = db.collection("Tags");
-    const tagsData = await tagsCollection.findOne({_id:id});
+    const tagsCollection = db.collection("Tags_v2");
+    const objectId = new ObjectId(id);
+    const tagsData = await tagsCollection.findOne({_id:objectId});
     return NextResponse.json({ success: true, data: tagsData });
   } catch (error) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 400 });

@@ -35,8 +35,8 @@ export default async function BlogPage(context: any) {
     content: blogData.content,
     views: blogData.views,
     tags: blogData.tags, // Assuming tags have a 'name' property
-    author: userData.full_name,
-    email: userData.email // Assuming author has a 'name' field
+    author: userData?.full_name,
+    email: userData?.email // Assuming author has a 'name' field
   };
 
   

@@ -16,7 +16,6 @@ export default async function Tags(context:any) {
   const session = await auth();
   const {name} = await context.params;
   const tagId = await getTagIdByName(name);
-  console.log(tagId);
   const taggedPosts = await searchByTagId(tagId);
   return (
     <>

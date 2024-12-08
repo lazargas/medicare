@@ -2,7 +2,7 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import User from '@/lib/models/User';
 import axios from 'axios';
-import { Collection } from 'mongodb';
+import { Collection, ObjectId } from 'mongodb';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 export const config = {
@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
-    const usersCollection = db.collection("Users");
+    const usersCollection = db.collection("Users_v2");
     const users = await usersCollection.find({}).toArray();
     return NextResponse.json({ success: true, data: users });
   } catch (error) {
@@ -49,30 +49,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error: (error as Error).message });
   }
 }
-interface User {
-  _id?: string;
-  user_id: string;
-  about: string;
-  article_ids: string[];
-  city: string;
-  council_registration_name: string;
-  council_registration_number: string;
-  country: string;
-  designation: string;
-  dont_remember: boolean;
-  email: string;
-  full_name: string;
-  license_pending_verification: boolean;
-  organization: string;
-  password: string;
-  phone_number: string;
-  privacy_policy_accepted: boolean;
-  registration_date: Date;
-  specialisation: string;
-  state: string;
-  terms_accepted: boolean;
-  work_category: string;
-}
+
 export async function PUT(req: Request) {
   try {
     // Parse the request body
@@ -93,7 +70,7 @@ export async function PUT(req: Request) {
       throw new Error('Database connection failed');
     }
     // Get the users collection
-    const usersCollection: Collection<User> = connection.db.collection('Users');
+    const usersCollection = connection.db.collection('Users_v2');
     // Prepare update data with defaults
     const updateData = {
       ...userData,

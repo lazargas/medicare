@@ -35,7 +35,6 @@ export const BlogProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fetchBlogsAndTags = async () => {
     try {
       const blogsData = await getBlogs();
-      console.log('Fetched blogs data:', blogsData); // Log the fetched data
       setBlogs(blogsData);
       const tagsData = await getTags();
       setTags(tagsData);

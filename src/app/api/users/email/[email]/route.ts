@@ -13,7 +13,8 @@ export async function GET(req: Request, context: any) {
       const connection:ConnectionObject = await dbConnect();  // Just need to ensure connection is established
       const db = connection.db!;
       // Use Mongoose model directly
-      const articlesCollection = db.collection("Users");
+      const articlesCollection = db.collection("Users_v2");
+      
       let user = await articlesCollection.findOne({email:email});
       if (!user) {
         return NextResponse.json({ success: false, data:[]});
