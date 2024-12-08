@@ -1,6 +1,4 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
-import axios from 'axios';
-import { Collection } from 'mongodb';
 import { NextResponse } from 'next/server';
 export async function GET(req: Request) {
   try {

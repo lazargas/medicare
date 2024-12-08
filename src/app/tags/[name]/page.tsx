@@ -20,7 +20,7 @@ export default async function Tags(context:any) {
   return (
     <>
       <div className="flex flex-col p-[1.5rem] md:flex-row w-full h-auto">
-       <Grid title={`Post by tag ${name.split('%20').join(" ")}`} blogs={taggedPosts} />
+       <Grid title={`Post by tag ${name.trim().split('%20').join(" ")}`} blogs={taggedPosts} />
       </div>
     </>
   );
