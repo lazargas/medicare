@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 import axios from 'axios';
 
-const RegistrationForm = ({user,userData}:any) => {
+const RegistrationForm = ({ user, userData }: any) => {
   const [formData, setFormData] = useState({
-    full_name: user.name ||'',
+    full_name: user.name || '',
     email: user.email || '',
     phone_number: userData.phone_number || '',
     country: userData.country || 'India',
     state: userData.state || '',
-    city: userData.city ||'',
+    city: userData.city || '',
     work_category: userData.work_category || '',
-    specialisation:userData.specialisation ||  '',
+    specialisation: userData.specialisation || '',
     designation: userData.designation || '',
-    organization:  userData.organization || '',
-    council_registration_name: userData.council_registration_name ||  '',
+    organization: userData.organization || '',
+    council_registration_name: userData.council_registration_name || '',
     council_registration_number: userData.council_registration_number || '',
     dont_remember: userData.dont_remember || false,
     terms_accepted: userData.terms_accepted || false,
@@ -25,7 +25,7 @@ const RegistrationForm = ({user,userData}:any) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -33,24 +33,24 @@ const RegistrationForm = ({user,userData}:any) => {
     }));
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-        const response = await axios.put(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'application/json'
-            }
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json'
           }
-        );
-        if(window)
+        }
+      );
+      if (window)
         window.location.href = '/success';
-      } catch (err:any) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -64,14 +64,14 @@ const RegistrationForm = ({user,userData}:any) => {
     <div className="min-h-screen bg-gray-50 w-full py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-[95%] sm:max-w-2xl mx-auto bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-md">
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
-           {
+          {
             user ?
-            'Edit Profile'
-            :
-            'Registration'
-           } 
+              'Edit Profile'
+              :
+              'Registration'
+          }
         </h2>
-        
+
         {error && (
           <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-2">
             <AlertCircle className="h-5 w-5 text-red-500" />
@@ -127,7 +127,42 @@ const RegistrationForm = ({user,userData}:any) => {
                   onChange={handleInputChange}
                 >
                   <option value="India">India</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="China">China</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="Russia">Russia</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Italy">Italy</option>
+                  <option value="Spain">Spain</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="South Korea">South Korea</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="Netherlands">Netherlands</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="Switzerland">Switzerland</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Sweden">Sweden</option>
+                  <option value="Norway">Norway</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="New Zealand">New Zealand</option>
+                  <option value="Thailand">Thailand</option>
+                  <option value="Philippines">Philippines</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Vietnam">Vietnam</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Nepal">Nepal</option>
+                  <option value="Bhutan">Bhutan</option>
                 </select>
+
               </div>
 
               <div>
@@ -139,10 +174,44 @@ const RegistrationForm = ({user,userData}:any) => {
                   onChange={handleInputChange}
                 >
                   <option value="">Select State</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jharkhand">Jharkhand</option>
                   <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                  <option value="Chandigarh">Chandigarh</option>
+                  <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                  <option value="Ladakh">Ladakh</option>
+                  <option value="Lakshadweep">Lakshadweep</option>
+                  <option value="Puducherry">Puducherry</option>
                 </select>
+
               </div>
 
               <div>
@@ -169,9 +238,20 @@ const RegistrationForm = ({user,userData}:any) => {
                 >
                   <option value="">Select Category</option>
                   <option value="Allopathy Doctor">Allopathy Doctor</option>
-                  <option value="Researcher">Researcher</option>
-                  <option value="Medical Professional">Medical Professional</option>
+                  <option value="AYUSH/ISM">AYUSH/ISM</option>
+                  <option value="Dietician">Dietician</option>
+                  <option value="Hospital/Diagnostic/Healthcare Administration">Hospital/Diagnostic/Healthcare Administration</option>
+                  <option value="Media">Media</option>
+                  <option value="Nurse">Nurse</option>
+                  <option value="Others/Patient/Non Medical Professional">Others/Patient/Non Medical Professional</option>
+                  <option value="Pharma/Device/Medical Industry Professional">Pharma/Device/Medical Industry Professional</option>
+                  <option value="Physiotherapist">Physiotherapist</option>
+                  <option value="Student">Student</option>
+                  <option value="Technician/Paramedical">Technician/Paramedical</option>
+                  <option value="Chemist/Pharmacist">Chemist/Pharmacist</option>
+                  <option value="Dentistry">Dentistry</option>
                 </select>
+
               </div>
 
               <div>
@@ -186,7 +266,26 @@ const RegistrationForm = ({user,userData}:any) => {
                   <option value="Cardiology">Cardiology</option>
                   <option value="Neurology">Neurology</option>
                   <option value="General Practice">General Practice</option>
+                  <option value="Dermatology">Dermatology</option>
+                  <option value="Gastroenterology">Gastroenterology</option>
+                  <option value="Gynecology">Gynecology</option>
+                  <option value="Orthopedics">Orthopedics</option>
+                  <option value="Pediatrics">Pediatrics</option>
+                  <option value="Psychiatry">Psychiatry</option>
+                  <option value="Radiology">Radiology</option>
+                  <option value="Oncology">Oncology</option>
+                  <option value="Nephrology">Nephrology</option>
+                  <option value="Pulmonology">Pulmonology</option>
+                  <option value="Endocrinology">Endocrinology</option>
+                  <option value="Rheumatology">Rheumatology</option>
+                  <option value="Ophthalmology">Ophthalmology</option>
+                  <option value="ENT">ENT</option>
+                  <option value="Urology">Urology</option>
+                  <option value="Anesthesiology">Anesthesiology</option>
+                  <option value="Hematology">Hematology</option>
+                  <option value="Pathology">Pathology</option>
                 </select>
+
               </div>
 
               <div>
@@ -220,9 +319,38 @@ const RegistrationForm = ({user,userData}:any) => {
                   onChange={handleInputChange}
                 >
                   <option value="N/A">N/A</option>
+                  <option value="Andhra Pradesh Medical Council">Andhra Pradesh Medical Council</option>
+                  <option value="Arunachal Pradesh Medical Council">Arunachal Pradesh Medical Council</option>
+                  <option value="Assam Medical Council">Assam Medical Council</option>
+                  <option value="Bihar Medical Council">Bihar Medical Council</option>
+                  <option value="Chhattisgarh Medical Council">Chhattisgarh Medical Council</option>
                   <option value="Delhi Medical Council">Delhi Medical Council</option>
+                  <option value="Goa Medical Council">Goa Medical Council</option>
+                  <option value="Gujarat Medical Council">Gujarat Medical Council</option>
+                  <option value="Haryana Medical Council">Haryana Medical Council</option>
+                  <option value="Himachal Pradesh Medical Council">Himachal Pradesh Medical Council</option>
+                  <option value="Jammu & Kashmir Medical Council">Jammu & Kashmir Medical Council</option>
+                  <option value="Jharkhand Medical Council">Jharkhand Medical Council</option>
+                  <option value="Karnataka Medical Council">Karnataka Medical Council</option>
+                  <option value="Kerala Medical Council">Kerala Medical Council</option>
+                  <option value="Madhya Pradesh Medical Council">Madhya Pradesh Medical Council</option>
                   <option value="Maharashtra Medical Council">Maharashtra Medical Council</option>
+                  <option value="Manipur Medical Council">Manipur Medical Council</option>
+                  <option value="Meghalaya Medical Council">Meghalaya Medical Council</option>
+                  <option value="Mizoram Medical Council">Mizoram Medical Council</option>
+                  <option value="Nagaland Medical Council">Nagaland Medical Council</option>
+                  <option value="Odisha Medical Council">Odisha Medical Council</option>
+                  <option value="Punjab Medical Council">Punjab Medical Council</option>
+                  <option value="Rajasthan Medical Council">Rajasthan Medical Council</option>
+                  <option value="Sikkim Medical Council">Sikkim Medical Council</option>
+                  <option value="Tamil Nadu Medical Council">Tamil Nadu Medical Council</option>
+                  <option value="Telangana Medical Council">Telangana Medical Council</option>
+                  <option value="Tripura Medical Council">Tripura Medical Council</option>
+                  <option value="Uttar Pradesh Medical Council">Uttar Pradesh Medical Council</option>
+                  <option value="Uttarakhand Medical Council">Uttarakhand Medical Council</option>
+                  <option value="West Bengal Medical Council">West Bengal Medical Council</option>
                 </select>
+
               </div>
 
               <div>
