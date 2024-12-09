@@ -26,18 +26,12 @@ export async function searchByTagId(id: string) {
 export async function uploadToS3(file: File, type: 'image' | 'thumbnail') {
   try {
     // Get presigned URL from your backend
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3-upload`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fileName: `${type}-${Date.now()}-${file.name}`,
-        fileType: file.type,
-      }),
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/s3-upload`, {
+      fileName: `${type}-${Date.now()}-${file.name}`,
+      fileType: file.type,
     });
-    if (!response.ok) {
-      throw new Error('Failed to get presigned URL');
-    }
-    const { uploadUrl, imageUrl } = await response.json();
+    console.log(response.data,"Response from S3");
+    const { uploadUrl, imageUrl } = await response.data;
     await axios.put(uploadUrl, file);
     return imageUrl;
   } catch (error) {

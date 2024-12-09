@@ -29,7 +29,7 @@ interface User {
   user_id: string;
   full_name: string;
 }
-const CreateArticleForm: React.FC<{ user: any, userData: any, handleSubmitProp?: (formData: any) => void }> = ({ user, userData }) => {
+const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userData }) => {
   const [formData, setFormData] = useState<FormData>({
     title: '',
     content: '',

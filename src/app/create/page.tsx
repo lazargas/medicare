@@ -1,8 +1,6 @@
 import { auth } from '@/auth'
-import Form from '@/components/atoms/Form'
 import Navbar from '@/components/atoms/Navbar'
 import CreateArticleForm from '@/components/Forms/CreateArticle'
-import { BlogContext } from '@/context/BlogContext'
 import { getUserByEmail } from '@/lib/api'
 import React from 'react'
 
@@ -13,6 +11,7 @@ const page = async (props: Props) => {
   let userData:any;
   if(session && session?.user && session.user.email)
   userData = await getUserByEmail(session?.user.email);
+
   return (
     <>
       <Navbar />
