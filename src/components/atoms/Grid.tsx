@@ -32,7 +32,7 @@ const Grid = (props: Props) => {
                                 className="thumbnail"
                             />
                             <div className="content">
-                                <h2 className="blog-title">{blog.title}</h2>
+                                <h2 className="grid-blog-title">{blog.title}</h2>
                                 <p className="blog-content-grid">{blog.content}</p>
                             </div>
                         </div>

@@ -229,3 +229,26 @@ export async function putArticlePublic(blog:any,id:string){
         throw error;
     }
 }
+
+export async function postArticle(articleData:any){
+    const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`,
+        {
+          ...articleData,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      return response.data.data;
+}
+
+export async function putUser(userData:any,id:any){
+    await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
+        full_name: userData.full_name,
+        email: userData.email,
+        article_ids: [...userData.article_ids, id]
+      });
+}

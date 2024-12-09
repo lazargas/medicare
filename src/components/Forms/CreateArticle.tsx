@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { AlertCircle, Upload, X } from 'lucide-react';
 import axios from 'axios';
 import { uploadToS3 } from '@/utils/utils';
-import { postTags } from '@/lib/api';
+import { getUserByEmail, postArticle, postTags, putUser } from '@/lib/api';
 interface Breadcrumb {
   level: string;
   text: string;
@@ -29,7 +29,7 @@ interface User {
   user_id: string;
   full_name: string;
 }
-const CreateArticleForm: React.FC<{ user: any }> = ({ user }) => {
+const CreateArticleForm: React.FC<{ user: any, userData: any, handleSubmitProp?: (formData: any) => void }> = ({ user, userData }) => {
   const [formData, setFormData] = useState<FormData>({
     title: '',
     content: '',
@@ -169,31 +169,22 @@ const CreateArticleForm: React.FC<{ user: any }> = ({ user }) => {
     setError('');
     setLoading(true);
     try {
-      const userResponse = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/email/${user.email}`);
-      const userData = userResponse.data.data;
       const author_id = userData._id;
       const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/users/${author_id}${Math.random()}`;
       const tagIds: string[] = await postTags(formData.tags);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`,
-        {
-          ...formData,
-          author_id,
-          URL,
-          tags:tagIds
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      const articleData = response.data.data;
-      await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
+      const articleBody = {
+        ...formData,
+        author_id,
+        URL,
+        tags: tagIds
+      };
+      const articleData = await postArticle(articleBody);
+      const userPutData = {
         full_name: userData.full_name,
         email: userData.email,
         article_ids: [...userData.article_ids, articleData._id]
-      });
+      };
+      await putUser(userPutData, articleData._id);
       window.location.href = '/blog/success';
     } catch (error: any) {
       setError(error.response?.data?.error || 'Failed to create article');
