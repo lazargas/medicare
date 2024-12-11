@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import logo from '@/assets/Images/logo.svg'
+import logo from '@/assets/Images/DoctorNewsDaily.svg'
 import Link from 'next/link'
 import { auth } from '@/auth'
 import SignIn from './SignIn'
@@ -14,7 +14,7 @@ const NavbarList = async (props: Props) => {
   const session = props.session;
   return (
     <nav className="relative flex w-full h-[80px] items-center justify-between p-[1.5rem] text-xl font-semibold">
-      <Link href="/"><Image src={logo} height={24} width={96} alt='logo' /></Link>
+      <Link href="/"><Image src={logo} height={100} width={200} alt='logo' /></Link>
       {
         session && session.user ?
           (<>
