@@ -40,7 +40,7 @@ const OverlayWarning = (props: Props) => {
                     <div className="p-4 md:p-5">
                         <div className='flex flex-col gap-[1.5rem] justify-center items-center m-[2.5rem] text-center' >
                             <div>
-                                <h1 className='text-xl md:text-xl font-semibold' >Please Sign so that we can serve you better</h1>
+                                <h1 className='text-xl md:text-xl font-semibold' >Can you please sign in ? <br /> It'll help us serve your needs better 🙏 </h1>
                                 <button
                                     type="button"
                                     className="hidden absolute top-[10px] end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
