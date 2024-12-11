@@ -6,6 +6,8 @@ import BlogFormatter from "@/components/atoms/BlogContent";
 import Grid from "@/components/atoms/Grid";
 import { useContext } from "react";
 import { BlogContext } from "@/context/BlogContext";
+import { auth } from "@/auth";
+import OverlayWarning from "@/components/atoms/OverlayWarning";
 
 type BlogPageProps = {
   blog: {
@@ -23,6 +25,7 @@ type BlogPageProps = {
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
+  const session = await auth();
   const blogData = await getArticleById(id);
   const blogs = await getBlogs();
   const userData = await getUserById(blogData.author_id);
@@ -39,11 +42,14 @@ export default async function BlogPage(context: any) {
     email: userData?.email // Assuming author has a 'name' field
   };
 
-  
   return (
     <>
       <Navbar />
+      {
+        !session && <OverlayWarning/>
+      }
       <div className="blog-container">
+      
         <h1 className="blog-title">{blog.title}</h1>
         <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
           height="400" className='blog-thumbnail' />
@@ -56,11 +62,10 @@ export default async function BlogPage(context: any) {
           <span>Published: {new Date(blog.created_at).toLocaleDateString()}</span>
         </p>
         <div className="blog-content">
-         <BlogFormatter content={blog.content}/>
+          <BlogFormatter content={blog.content} />
         </div>
-        <Grid title="Related Content" blogs={blogs.slice(0,4)}  />
+        <Grid title="Related Content" blogs={blogs.slice(0, 4)} />
       </div>
-     
     </>
   );
 }
