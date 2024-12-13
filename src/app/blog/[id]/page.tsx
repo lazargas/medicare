@@ -27,7 +27,6 @@ export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
   const session = await auth();
   const blogData = await getArticleById(id);
-  const blogs = await getBlogs();
   const userData = await getUserById(blogData.author_id);
   const blog = {
     _id: blogData._id.toString(),
@@ -49,7 +48,6 @@ export default async function BlogPage(context: any) {
         !session && <OverlayWarning/>
       }
       <div className="blog-container">
-      
         <h1 className="blog-title">{blog.title}</h1>
         <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
           height="400" className='blog-thumbnail' />
@@ -64,7 +62,7 @@ export default async function BlogPage(context: any) {
         <div className="blog-content">
           <BlogFormatter content={blog.content} />
         </div>
-        <Grid title="Related Content" blogs={blogs.slice(0, 4)} />
+        {/* <Grid title="Related Content" blogs={blogs.slice(0, 4)} /> */}
       </div>
     </>
   );

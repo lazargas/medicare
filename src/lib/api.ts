@@ -72,17 +72,12 @@ export const postBlog = async (blog: any, tags: any[], user: any): Promise<boole
     }
 }
 
-export const getBlogsForProfile = async (article_ids: any): Promise<any[]> => {
+export const getBlogsForProfile = async (authorId: any): Promise<any[]> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const blogs = [];
-    const response = await axios.get(`${baseUrl}/api/articles`);
+    const response = await axios.get(`${baseUrl}/api/articles/authorId/${authorId}`);
     const articles = response.data.data;
-    for(const article of articles){
-        if(article_ids.includes(article._id.toString())){
-            blogs.push(article);
-        }
-    }
-    return blogs;
+    return articles;
 }
 
 export const getBlogs = async (): Promise<any> => {

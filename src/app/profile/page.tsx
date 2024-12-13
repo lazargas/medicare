@@ -5,18 +5,15 @@ import SignOut from '@/components/atoms/SignOut';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import Link from 'next/link';
 import React from 'react'
-
 type Props = {}
-
 const page = async (props: Props) => {
     const session = await auth();
+    const userData = await getUserByEmail(session?.user?.email!);
     let blogs = [];
-
     if (session && session?.user) {
-        const user = await getUserByEmail(session?.user.email!);
-        blogs = await getBlogsForProfile(user.article_ids); 
+        blogs = await getBlogsForProfile(userData._id); 
     }
-    const userData = getUserByEmail(session?.user?.email!);
+   
     return (
         <>
             <Navbar />
