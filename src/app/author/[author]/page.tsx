@@ -2,8 +2,6 @@ import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';  // Navbar should be a component here
 import Profile from '@/components/atoms/Profile';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
-import User from '@/lib/models/User';
-import { get } from 'http';
 import React from 'react';
 
 export default async function AuthorPage(context: any) {

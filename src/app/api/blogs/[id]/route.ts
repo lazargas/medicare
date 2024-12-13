@@ -1,7 +1,6 @@
 // pages/api/blogs/[id].ts
 import dbConnect from '@/lib/dbConnect';
 import Blog from '@/lib/models/Blog';
-import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request, context: any) {

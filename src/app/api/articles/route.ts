@@ -1,6 +1,6 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
+
 export async function GET(req: Request) {
   try {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established

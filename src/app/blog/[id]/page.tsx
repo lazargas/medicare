@@ -1,27 +1,10 @@
 import "../blog.css";
 import Navbar from '@/components/atoms/Navbar';
 import Link from 'next/link';
-import { getArticleById, getBlogs, getUserById } from '@/lib/api';
+import { getArticleById, getUserById } from '@/lib/api';
 import BlogFormatter from "@/components/atoms/BlogContent";
-import Grid from "@/components/atoms/Grid";
-import { useContext } from "react";
-import { BlogContext } from "@/context/BlogContext";
 import { auth } from "@/auth";
 import OverlayWarning from "@/components/atoms/OverlayWarning";
-
-type BlogPageProps = {
-  blog: {
-    _id: string;
-    thumbnail: string;
-    created_at: string;
-    updated_at: string;
-    title: string;
-    content: string;
-    views: number;
-    tags: string[];
-    author: string;
-  };
-};
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
@@ -40,7 +23,6 @@ export default async function BlogPage(context: any) {
     author: userData?.full_name,
     email: userData?.email // Assuming author has a 'name' field
   };
-
   return (
     <>
       <Navbar />
@@ -62,7 +44,6 @@ export default async function BlogPage(context: any) {
         <div className="blog-content">
           <BlogFormatter content={blog.content} />
         </div>
-        {/* <Grid title="Related Content" blogs={blogs.slice(0, 4)} /> */}
       </div>
     </>
   );

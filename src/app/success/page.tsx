@@ -1,9 +1,5 @@
 import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';
-import Profile from '@/components/atoms/Profile';
-import SignOut from '@/components/atoms/SignOut';
-import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
-import Link from 'next/link';
 import React from 'react'
 
 type Props = {}

@@ -1,6 +1,6 @@
 import HomePage from "@/components/atoms/Home";
 import { auth } from "@/auth";
-import { getBlogs, getUserByEmail } from "@/lib/api";
+import { getBlogs } from "@/lib/api";
 
 interface Tag {
   name: string;
@@ -16,7 +16,6 @@ export default async function Home() {
     <>
       <div className="flex flex-col md:flex-row w-full h-auto">
         <div className="w-full ">
-     
           <HomePage
             blogs={filteredBlogs}
             user={session && session.user ? session.user : null}

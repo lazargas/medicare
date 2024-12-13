@@ -1,5 +1,3 @@
-// pages/api/blogs/index.ts
-import { auth } from '@/auth';
 import dbConnect from '@/lib/dbConnect';
 import Blog from '@/lib/models/Blog';
 import { NextResponse } from 'next/server';

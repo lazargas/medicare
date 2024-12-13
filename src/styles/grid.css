@@ -15,10 +15,11 @@
 
   .grid {
     display: grid;
-    /* grid-template-columns: 1fr 2fr 1fr; */
+    min-width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-bottom: 1.5rem;
+
   }
 
   .card {
@@ -58,4 +59,17 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1; /* Number of lines to show */
+  }
+
+  .grid-loader{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    background-color: #fff;
   }

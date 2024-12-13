@@ -1,6 +1,5 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb'; // Ensure you have mongodb installed and imported
 
 export async function GET(req: Request) {
   try {

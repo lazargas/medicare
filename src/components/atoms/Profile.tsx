@@ -31,7 +31,7 @@ const Profile = (props: Props) => {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">{user.name}</h1>
                 </div>
             </div>
-            <div className='h-auto w-[80vw] flex flex-col gap-[1.5rem] items-center justify-center' >
+            <div className='h-auto w-[100%] flex flex-col gap-[1.5rem] items-center justify-center p-[1.5rem]' >
                {currentUser.email===user.email && <RegistrationForm userData={userData} user={currentUser} />} 
                 {
                     blogs.length===0 ? <h1 className="title">No Blogs Under Your Profile</h1>  : <Grid blogs={blogs} title={title} />

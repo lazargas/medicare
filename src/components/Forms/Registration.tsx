@@ -62,7 +62,7 @@ const RegistrationForm = ({ user, userData }: any) => {
 
   return (
     <div className="min-h-screen bg-gray-50 w-full py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-[95%] sm:max-w-2xl mx-auto bg-white p-4 sm:p-6 lg:p-8 rounded-lg shadow-md">
+      <div className="w-full max-w-[95%] sm:max-w-2xl mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-md">
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
           {
             user ?
