@@ -145,7 +145,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags,...props }) => {
               <h3 className="font-semibold text-gray-800">{category}</h3>
             </div>
 
-            <div className="absolute invisible group-hover:visible opacity-0 group-hover:opacity-100 bg-white shadow-lg rounded-md mt-1 py-2 w-48 z-40 transition-all duration-200 ease-in-out left-0">
+            <div className="absolute max-h-[300px] overflow-scroll invisible group-hover:visible opacity-0 group-hover:opacity-100 bg-white shadow-lg rounded-md mt-1 py-2 w-48 z-40 transition-all duration-200 ease-in-out left-0">
               {groupedTags[category].map((tag) => (
                 <button
                   key={tag.name}
