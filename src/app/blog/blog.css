@@ -28,6 +28,8 @@
     color: #666;
     font-size: 0.9rem;
     margin-bottom: 20px;
+    display: flex;
+    gap:4px;
   }
 
   .blog-content {

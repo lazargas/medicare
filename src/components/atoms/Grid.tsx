@@ -22,7 +22,7 @@ const Grid = (props: Props) => {
         window.location.href = '/admin';
     }
     return (
-        <div className='flex flex-col w-[100%]' >
+        <div className='flex flex-col w-[100%] items-center justify-center' >
             {
                 loader ? <div className='grid-loader' >
                     <DNA

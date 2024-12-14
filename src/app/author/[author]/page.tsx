@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import Navbar from '@/components/atoms/Navbar';  // Navbar should be a component here
+import Navbar from '@/components/atoms/Navbar';
 import Profile from '@/components/atoms/Profile';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import React from 'react';
@@ -9,7 +9,7 @@ export default async function AuthorPage(context: any) {
     const session = await auth();
     const user = await getUserByEmail(author);
     let blogs = [];
-    blogs = await getBlogsForProfile(user.article_ids);
+    blogs = await getBlogsForProfile(user._id);
     return (
         <>
             <Navbar />

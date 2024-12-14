@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import logo from '@/assets/Images/DoctorNewsDaily.svg'
 import Link from 'next/link'
-import { auth } from '@/auth'
 import SignIn from './SignIn'
 import SignOut from './SignOut'
 import menu from '@/assets/Images/menu.svg'
+import { DNA } from 'react-loader-spinner'
 
 type Props = {
   session: any
@@ -12,8 +12,24 @@ type Props = {
 
 const NavbarList = async (props: Props) => {
   const session = props.session;
+  let loader = false;
+  const handleClick = () => {
+    loader = true;
+  }
   return (
     <nav className="relative flex w-full h-[80px] items-center justify-between p-[1.5rem] text-xl font-semibold">
+      {/* {
+        loader && <div className='fixed top-0 left-0 bg-[#fff] h-screen w-full flex items-center justify-center z-[99]' >
+          <DNA
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </div>
+      } */}
       <Link href="/"><Image src={logo} height={100} width={200} alt='logo' /></Link>
       {
         session && session.user ?

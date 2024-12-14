@@ -31,16 +31,17 @@ export default async function BlogPage(context: any) {
       }
       <div className="blog-container">
         <h1 className="blog-title">{blog.title}</h1>
-        <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
-          height="400" className='blog-thumbnail' />
         <p className="blog-meta">
           <Link href={`/author/${blog.email}`} >
-            <span className='font-semibold text-[#10AD3E]' >
+            <span className='font-semibold text-[#AD103A]' >
               Author: {blog.author}</span>
           </Link>
-          |
+          <span>-</span>
           <span>Published: {new Date(blog.created_at).toLocaleDateString()}</span>
         </p>
+        <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
+          height="400" className='blog-thumbnail' />
+        
         <div className="blog-content">
           <BlogFormatter content={blog.content} />
         </div>
