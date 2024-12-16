@@ -23,7 +23,7 @@ const VerticalCard = (props: Props) => {
   }
 
   return (
-    <Link href={`/blog/${blog._id}`} onClick={() => handleClick()}>
+    <Link className='w-[100%]' href={`/blog/${blog._id}`} onClick={() => handleClick()}>
       {loader ? (
         <div className='card-loader'>
           <DNA

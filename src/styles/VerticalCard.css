@@ -91,3 +91,17 @@
       line-height: inherit;
     }
   }
+
+  @media screen and (max-width: 786px) { 
+    .single-post-wrap-vertical.style-white .details .title {
+      font-size: 16px;
+      line-height: inherit;
+    }
+    .single-post-wrap-vertical {
+      max-width: 100%;
+      min-width: 100%;
+    }
+}
+
+
+
