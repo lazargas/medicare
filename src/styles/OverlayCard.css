@@ -1,0 +1,135 @@
+.single-post-wrap-overlay {
+    position: relative;
+    margin-bottom: 30px;
+    transition: 0.4s;
+    width: 300px;
+    max-width: 300px;
+    padding: 0.75rem;
+}
+    
+
+  .single-post-wrap-overlay.style-overlay .thumb {
+    margin-bottom: 0;
+  }
+  .single-post-wrap-overlay .thumb {
+    position: relative;
+    margin-bottom: 27px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .single-post-wrap-overlay.style-overlay .thumb::before {
+    content: "";
+    background: linear-gradient(to top, rgba(32, 22, 84, 0.38) 52%, rgba(0, 0, 100, 0));
+    height: 75%;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 4;
+    transition: 0.4s;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .single-post-wrap-overlay.style-overlay .thumb img {
+    min-height: 119px;
+  }
+  .single-post-wrap-overlay .thumb img {
+    transition: 0.8s;
+    transform: scale(1.01);
+  }
+  img {
+    max-width: 100%;
+  }
+  img {
+    vertical-align: middle;
+    border-style: none;
+  }
+
+  .single-post-wrap-overlay .thumb .tag-base {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+  .tag-purple {
+    background: #7530ff;
+    color: #fff;
+  }
+  .tag-base {
+    height: 28px;
+    line-height: 28px;
+    padding: 0 14px;
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 15px;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .single-post-wrap-overlay.style-overlay .thumb::after {
+    content: "";
+    background: linear-gradient(to top, rgba(32, 22, 84, 0.6) 52%, rgba(0, 0, 100, 0));
+    height: 70%;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 3;
+    transition: 0.4s;
+  }
+
+  .single-post-wrap-overlay.style-overlay .details {
+    position: absolute;
+    bottom: 0;
+    padding: 18px 20px;
+    z-index: 4;
+  }
+
+  .single-post-wrap-overlay.style-overlay .post-meta-single {
+    margin-bottom: 8px;
+  }
+  .single-post-wrap-overlay.style-overlay .details p {
+    color: #fff;
+  }
+  .single-post-wrap-overlay .details p {
+    margin-bottom: 0;
+    color: var(--heading-color);
+  }
+  .post-meta-single p {
+    font-size: 14px;
+  }
+  .overlay-date p {
+    color: var(--paragraph-color);
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    margin-bottom: 10px;
+  }
+  .overlay-date p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .single-post-wrap-overlay.style-overlay .details .title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2
+  }
+  .single-post-wrap-overlay .details .title {
+    margin-bottom: 0;
+  }
+
+  .date-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+  }

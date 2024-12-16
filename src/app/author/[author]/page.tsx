@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';
 import Profile from '@/components/atoms/Profile';
+import Footer from '@/components/molecules/Footer';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import React from 'react';
 
@@ -20,6 +21,7 @@ export default async function AuthorPage(context: any) {
                     <h1 className='text-4xl font-semibold'>Please sign in to view profile</h1>
                 </div>
             )}
+             <Footer blogs={blogs.slice(0, 3)} />
         </>
     );
 }

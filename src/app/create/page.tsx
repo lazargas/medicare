@@ -25,7 +25,6 @@ const page = async (props: Props) => {
             <h1 className='text-xl md:text-4xl font-semibold' >Please sign in to view your profile</h1>
           </div>
       }
-
     </>
   )
 }

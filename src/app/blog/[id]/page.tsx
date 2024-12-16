@@ -1,15 +1,18 @@
 import "../blog.css";
 import Navbar from '@/components/atoms/Navbar';
 import Link from 'next/link';
-import { getArticleById, getUserById } from '@/lib/api';
+import { getArticleById, getBlogsByNumber, getUserById } from '@/lib/api';
 import BlogFormatter from "@/components/atoms/BlogContent";
 import { auth } from "@/auth";
 import OverlayWarning from "@/components/atoms/OverlayWarning";
+import Footer from "@/components/molecules/Footer";
+import HorizontalCard from "@/components/molecules/HorizontalCard";
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
   const session = await auth();
   const blogData = await getArticleById(id);
+  const blogs = await getBlogsByNumber(8);
   const userData = await getUserById(blogData.author_id);
   const blog = {
     _id: blogData._id.toString(),
@@ -27,7 +30,7 @@ export default async function BlogPage(context: any) {
     <>
       <Navbar />
       {
-        !session && <OverlayWarning/>
+        !session && <OverlayWarning />
       }
       <div className="blog-container">
         <h1 className="blog-title">{blog.title}</h1>
@@ -41,11 +44,22 @@ export default async function BlogPage(context: any) {
         </p>
         <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
           height="400" className='blog-thumbnail' />
-        
+
         <div className="blog-content">
           <BlogFormatter content={blog.content} />
         </div>
       </div>
+      <h2 className="px-[1.5rem] font-[1.5rem]" >Related Posts</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] px-[1.5rem] " >
+        {
+          blogs.map((blog: any, index: any) => {
+            return (
+              <HorizontalCard key={`${blog.title}${index}`} blog={blog} />
+            )
+          })
+        }
+      </div>
+      <Footer blogs={[...blogs].slice(0, 3)} />
     </>
   );
 }

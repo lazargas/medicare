@@ -5,8 +5,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --main-color: #097bed;
+  --heading-color: #201654;
+  --paragraph-color: #565872;
+  --search-bg-color: #086ed5;
+  --heading-font: "Rubik", sans-serif;
+  --body-font: "Rubik", sans-serif;
+  --body-font-size: 16px;
+  --line-height30: 1.7;
+  --text-color:#000;
+  --button-text-color:#fff;
 }
 
 body {
@@ -14,3 +22,4 @@ body {
   background: var(--background);
   font-family: "Manrope", sans-serif;
 }
+

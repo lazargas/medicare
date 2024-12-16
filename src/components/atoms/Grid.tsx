@@ -35,7 +35,7 @@ const Grid = (props: Props) => {
                     />
                 </div> :
                     <>
-                        <h1 className="title">{title}</h1>
+                        <h1 className="grid-title">{title}</h1>
                         <div className="grid">
                             {blogs.map((blog: any) => (
                                 <div key={blog._id} className='flex flex-col' >

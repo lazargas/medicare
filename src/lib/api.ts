@@ -247,3 +247,33 @@ export async function putUser(userData:any,id:any){
         article_ids: [...userData.article_ids, id]
       });
 }
+
+getTagNameById
+
+export async function getTagNameById(id: string) {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await axios.get(`${baseUrl}/api/tags/${id}`);
+        if (!response.data.data) {
+            return "";
+        }
+        return response.data.data.name;
+    }
+    catch (e: any) {
+        console.error("Error in getting tag name by id");
+    }
+}
+
+export async function getBlogsByNumber(number: number) {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await axios.get(`${baseUrl}/api/articles/number/${number}`);
+        if (!response.data.data) {
+            return [];
+        }
+        return response.data.data;
+    }
+    catch (e: any) {
+        console.error("Error in getting blogs by number by id");
+    }
+}

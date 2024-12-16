@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import AdminPanel from '@/components/atoms/AdminPanel';
 import Navbar from '@/components/atoms/Navbar';
+import Footer from '@/components/molecules/Footer';
 import { getBlogs } from '@/lib/api';
 import React from 'react';
 
@@ -24,7 +25,7 @@ export default async function AdminPage(context: any) {
             </div>
           </>
       }
-
+       <Footer blogs={blogs.slice(0, 3)} />
     </>
   );
 }

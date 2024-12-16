@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import Navbar from '@/components/atoms/Navbar';
 import RegistrationForm from '@/components/Forms/Registration';
+import Footer from '@/components/molecules/Footer';
 import { getBlogsForProfile, getUserByEmail } from '@/lib/api';
 import React from 'react'
 
@@ -27,7 +28,7 @@ const page = async (props: Props) => {
                         <h1 className='text-xl md:text-4xl font-semibold' >Please sign in to Complete registration</h1>
                     </div>
             }
-
+            <Footer blogs={[...blogs].slice(0, 3)} />
         </>
     )
 }
