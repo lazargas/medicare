@@ -1,6 +1,6 @@
 import HomePage from "@/components/atoms/Home";
 import { auth } from "@/auth";
-import { getBlogs, getTagNameById } from "@/lib/api";
+import { getBlogs, getTagNameById, getTags } from "@/lib/api";
 import Footer from "@/components/molecules/Footer";
 
 interface Tag {
@@ -11,15 +11,9 @@ interface Tag {
 export default async function Home() {
   const session = await auth();
   const blogs = await getBlogs();
+  const tags = await getTags();
   const filteredBlogs = blogs.filter((article: any) => article.Public === true);
-  const tags: Map<any, string> = new Map();
-  for (const blog of blogs) {
-    if (blog.tags.length<=0) {
-      continue;
-    }
-    const tag = await getTagNameById(blog.tags[0]);
-    tags.set(blog._id, tag);
-  }
+  const blogMapper: Map<any, any> = getTagNameById(tags,blogs)!;
 
   return (
     <>
@@ -28,7 +22,7 @@ export default async function Home() {
           blogs={filteredBlogs}
           user={session && session.user ? session.user : null}
           title="Trending Now"
-          tags={tags}
+          tags={blogMapper}
         />
         <Footer blogs={blogs.slice(0, 3)} />
       </div>

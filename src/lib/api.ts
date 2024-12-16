@@ -12,8 +12,8 @@ export const postUser = async (user: any): Promise<void> => {
             email: user.email
         }
         const response = await axios.get(`${baseUrl}/api/users/email/${user.email}`);
-        if(response.data && response.data.data){
-            
+        if (response.data && response.data.data) {
+
         }
         const data = await axios.post(`${baseUrl}/api/users`, {
             ...body
@@ -102,9 +102,9 @@ export const getUserByEmail = async (email: string): Promise<any> => {
 }
 
 export const getUserById = async (id: string): Promise<any> => {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const response = await axios.get(`${baseUrl}/api/users/${id}`);
-        return response.data.data;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await axios.get(`${baseUrl}/api/users/${id}`);
+    return response.data.data;
 }
 
 export const getArticleById = async (id: string): Promise<any> => {
@@ -210,54 +210,61 @@ export async function postTags(tags: { name: string, category: string }[]): Prom
     }
 }
 
-export async function putArticlePublic(blog:any,id:string){
-   try{
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const response  = await axios.put(`${baseUrl}/api/articles/${id}`,{
-         ...blog,
-    });
-    if(!response.data && !response.data.data)return;
-    return response.data.data;
-    } 
+export async function putArticlePublic(blog: any, id: string) {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await axios.put(`${baseUrl}/api/articles/${id}`, {
+            ...blog,
+        });
+        if (!response.data && !response.data.data) return;
+        return response.data.data;
+    }
     catch (error: any) {
         console.error("Error in posting tags in api", error);
         throw error;
     }
 }
 
-export async function postArticle(articleData:any){
+export async function postArticle(articleData: any) {
     const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/articles`,
         {
-          ...articleData,
+            ...articleData,
         },
         {
-          headers: {
-            'Content-Type': 'application/json'
-          }
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
-      );
-      return response.data.data;
+    );
+    return response.data.data;
 }
 
-export async function putUser(userData:any,id:any){
+export async function putUser(userData: any, id: any) {
     await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
         full_name: userData.full_name,
         email: userData.email,
         article_ids: [...userData.article_ids, id]
-      });
+    });
 }
 
 getTagNameById
 
-export async function getTagNameById(id: string) {
+export function getTagNameById(tags: any, blogs: any):Map<string,string> | undefined {
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const response = await axios.get(`${baseUrl}/api/tags/${id}`);
-        if (!response.data.data) {
-            return "";
+        const tagMapper: Map<string, string> = new Map();
+        for (const tag of tags) {
+            tagMapper.set(tag._id, tag.name);
         }
-        return response.data.data.name;
+        const blogMapper: Map<string, string | ""> = new Map();
+        for (const blog of blogs) {
+            if (blog.tags.length <= 0) {
+                continue;
+            }
+            const tag = tagMapper.get(blog.tags[0]);
+            blogMapper.set(blog._id, tag ? tag : "");
+        }
+       return blogMapper;
     }
     catch (e: any) {
         console.error("Error in getting tag name by id");
