@@ -13,7 +13,7 @@ type Props = {
 }
 
 const VerticalCard = (props: Props) => {
-  const { variant, blog, tag } = props;
+  const { variant, blog } = props;
   const [loader, setLoader] = useState<boolean>(false);
   const date = new Date(blog.created_at).toLocaleString("en-US", { timeZone: 'Asia/Kolkata' });
 
@@ -39,9 +39,9 @@ const VerticalCard = (props: Props) => {
         <div className="single-post-wrap-vertical style-white">
       <div className="thumb">
         <img src={blog.thumbnail} alt="img" />
-        <div className="tag-base tag-blue" >
+        {/* <div className="tag-base tag-blue" >
           {tag}
-        </div>
+        </div> */}
       </div>
         <div className="details">
           <h6 className="">
