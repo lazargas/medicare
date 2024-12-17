@@ -7,9 +7,11 @@ export async function GET(req: Request,context:any) {
     const connection: ConnectionObject = await dbConnect();  // Just need to ensure connection is established
     const db = connection.db!;
     const articlesCollection = db.collection("Articles_v2");
-    const articlesData = (await articlesCollection.find({}).toArray()).slice(0,number);
+    const numberParam:number = +number;
+    const articlesData = await articlesCollection.find({}).limit(numberParam).toArray();
     return NextResponse.json({
       success: true,
+      count:articlesData.length,
       data: articlesData
     });
   } catch (error) {

@@ -10,9 +10,11 @@ import HorizontalCard from "@/components/molecules/HorizontalCard";
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
-  const session = await auth();
-  const blogData = await getArticleById(id);
-  const blogs = await getBlogsByNumber(8);
+  const [session,blogData, blogs] = await Promise.all([
+    auth(),
+    getArticleById(id),
+    getBlogsByNumber(8),
+  ]);
   const userData = await getUserById(blogData.author_id);
   const blog = {
     _id: blogData._id.toString(),
@@ -63,6 +65,3 @@ export default async function BlogPage(context: any) {
     </>
   );
 }
-
-
-

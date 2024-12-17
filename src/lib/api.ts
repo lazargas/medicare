@@ -273,8 +273,9 @@ export function getTagNameById(tags: any, blogs: any):Map<string,string> | undef
 
 export async function getBlogsByNumber(number: number) {
     try {
+        
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const response = await axios.get(`${baseUrl}/api/articles/number/${number}`);
+        const response = await axios.get(`${baseUrl}/api/articles/number/${number.toString()}`); 
         if (!response.data.data) {
             return [];
         }
