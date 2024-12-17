@@ -36,7 +36,7 @@ const Grid = (props: Props) => {
                 </div> :
                     <>
                         <h1 className="grid-title">{title}</h1>
-                        <div className="grid">
+                        <div className="grid-template">
                             {blogs.map((blog: any) => (
                                 <div key={blog._id} className='flex flex-col' >
                                     <Link href={`/blog/${blog._id}`} onClick={() => handleClick()} className={`${loader ? "hidden" : ""}`} >

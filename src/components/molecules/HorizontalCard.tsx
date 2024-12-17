@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import "@/styles/HorizontalCard.css";
 import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
@@ -65,4 +65,4 @@ const HorizontalCard = (props: Props) => {
   )
 }
 
-export default HorizontalCard
+export default memo(HorizontalCard)

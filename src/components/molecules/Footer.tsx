@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, { memo } from 'react';
 import { Facebook, Twitter, Youtube, Instagram } from 'lucide-react';
 import HorizontalCard from './HorizontalCard';
 type Props = {
@@ -95,4 +96,4 @@ const Footer = ({ blogs }: Props) => {
     </footer>
   );
 };
-export default Footer;
+export default memo(Footer);
