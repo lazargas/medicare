@@ -4,6 +4,7 @@ import "@/styles/VerticalCard.css";
 import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
 import { DNA } from 'react-loader-spinner'
+import Image from 'next/image';
 
 
 type Props = {
@@ -20,14 +21,16 @@ const VerticalCard = (props: Props) => {
 
   return (
     <Link className='w-[100%]' href={`/blog/${blog._id}`} >
-     
-        <div className="single-post-wrap-vertical style-white">
-      <div className="thumb">
-        <img src={blog.thumbnail} alt="img" />
-        {/* <div className="tag-base tag-blue" >
+
+      <div className="single-post-wrap-vertical style-white">
+        <div className="thumb">
+          <div className='relative h-[100%] w-[100%]' >
+            <Image src={blog.thumbnail} alt="img" loading='lazy' height={172} width={286} />
+          </div>
+          {/* <div className="tag-base tag-blue" >
           {tag}
         </div> */}
-      </div>
+        </div>
         <div className="details">
           <h6 className="">
             <div className='title' >
@@ -43,8 +46,8 @@ const VerticalCard = (props: Props) => {
             </ul>
           </div>
         </div>
-    </div>
-      
+      </div>
+
     </Link>
   )
 }

@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import OverlayWarning from "@/components/atoms/OverlayWarning";
 import Footer from "@/components/molecules/Footer";
 import HorizontalCard from "@/components/molecules/HorizontalCard";
+import Image from "next/image";
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
@@ -44,8 +45,8 @@ export default async function BlogPage(context: any) {
           <span>-</span>
           <span>Published: {new Date(blog.created_at).toLocaleDateString()}</span>
         </p>
-        <img src={`${blog.thumbnail}`} alt="thumbnail" width="800"
-          height="400" className='blog-thumbnail' />
+        <Image src={`${blog.thumbnail}`} alt="thumbnail" width="800"
+          height="400" className='blog-thumbnail' loading="lazy"/>
 
         <div className="blog-content">
           <BlogFormatter content={blog.content} />

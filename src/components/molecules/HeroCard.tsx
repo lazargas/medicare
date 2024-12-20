@@ -1,9 +1,8 @@
 "use client"
 import React, { memo, useState } from 'react'
 import '@/styles/Card.css'
-import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
-import { DNA } from 'react-loader-spinner'
+import Image from 'next/image'
 
 
 
@@ -27,7 +26,9 @@ const HeroCard = (props: Props) => {
             <div className="row">
               <div className="col-lg-6">
                 <div className="thumb after-left-top">
-                  <img src={blog.thumbnail} alt="img" />
+                  <div className='relative h-[100%] w-[100%]' > 
+                  <Image src={blog.thumbnail} alt="img" loading='lazy' className="w-full h-auto" height={408} width={680} />
+                  </div>
                 </div>
               </div>
               <div className="col-lg-6 align-self-center">
