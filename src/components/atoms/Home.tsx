@@ -27,17 +27,17 @@ function HomePage(props: any) {
     <>
       <div className="container">
         <div className="flex items-center justify-center flex-col gap-[1rem]" >
-         <div className="md:h-[500px] w-[100%] h-[100%]" >
+         <div className="md:h-[500px] w-[100%] h-[500px]" >
          <Carousel
          autoSlide={true}
-         slideInterval={2000}
+         slideInterval={4000}
         >
           {sliderCards}
           </Carousel>
           </div> 
        
         {/* <HeroCard blog={blogs[0]} /> */}
-        <div className="md:flex items-center justify-between w-[100%] md:flex-row flex-col hidden"   >
+        <div className="md:flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col hidden"   >
         <Carousel
         visibleCards={4}
         >
@@ -50,7 +50,7 @@ function HomePage(props: any) {
         }
          </Carousel>
         </div>
-        <div className="flex items-center justify-between w-[100%] md:flex-row flex-col md:hidden"   >
+        <div className="flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col md:hidden"   >
         <Carousel
         visibleCards={1}>
         {
