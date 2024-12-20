@@ -131,14 +131,14 @@ const Carousel: React.FC<CarouselProps> = ({
   const totalChildren = React.Children.count(children);
 
   // Memoize handlers to prevent unnecessary rerenders
-  const handleNext = React.useCallback((e:MouseEvent) => {
+  const handleNext = React.useCallback((e:any) => {
     if(e)
     e.stopPropagation();
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalChildren);
   }, [totalChildren]);
 
-  const handlePrev = React.useCallback((e:MouseEvent) => {
+  const handlePrev = React.useCallback((e:any) => {
     if(e)
     e.stopPropagation();
     setDirection(-1);

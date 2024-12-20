@@ -58,7 +58,6 @@ const HeroCard = (props: Props) => {
             </div>
           </div>
         </div>
-      )}
     </Link>
   )
 }
