@@ -131,12 +131,16 @@ const Carousel: React.FC<CarouselProps> = ({
   const totalChildren = React.Children.count(children);
 
   // Memoize handlers to prevent unnecessary rerenders
-  const handleNext = React.useCallback(() => {
+  const handleNext = React.useCallback((e:MouseEvent) => {
+    if(e)
+    e.stopPropagation();
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalChildren);
   }, [totalChildren]);
 
-  const handlePrev = React.useCallback(() => {
+  const handlePrev = React.useCallback((e:MouseEvent) => {
+    if(e)
+    e.stopPropagation();
     setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalChildren) % totalChildren);
   }, [totalChildren]);
@@ -214,7 +218,7 @@ const Carousel: React.FC<CarouselProps> = ({
       </div>
 
       <button
-        onClick={handlePrev}
+        onClick={(e)=>handlePrev(e)}
         className="absolute top-1/2 -left-4 -translate-y-1/2 rotate-90 transform hover:scale-110 transition-transform"
         style={{ willChange: 'transform' }}
       >
@@ -224,7 +228,7 @@ const Carousel: React.FC<CarouselProps> = ({
       </button>
 
       <button
-        onClick={handleNext}
+        onClick={(e)=>handleNext(e)}
         className="absolute top-[50%] -right-4 -translate-y-1/2 -rotate-90 transform hover:scale-110 transition-transform"
         style={{ willChange: 'transform' }}
       >

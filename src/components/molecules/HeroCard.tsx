@@ -15,26 +15,13 @@ type Props = {
 
 const HeroCard = (props: Props) => {
   const { variant, blog } = props;
-  const [loader, setLoader] = useState<boolean>(false);
+ 
   const date = new Date(blog.created_at).toLocaleString("en-US", { timeZone: 'Asia/Kolkata' });
-  const handleClick = () => {
-    setLoader(true);
-  }
+  
 
   return (
-    <Link href={`/blog/${blog._id}`} onClick={() => handleClick()}>
-      {loader ? (
-        <div className='card-loader'>
-          <DNA
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass="dna-wrapper"
-          />
-        </div>
-      ) : (
+    <Link href={`/blog/${blog._id}`} >
+      
         <div className="banner-inner pt-5">
           <div className="hero-card-container">
             <div className="row">

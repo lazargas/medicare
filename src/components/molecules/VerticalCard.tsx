@@ -14,28 +14,13 @@ type Props = {
 
 const VerticalCard = (props: Props) => {
   const { variant, blog } = props;
-  const [loader, setLoader] = useState<boolean>(false);
   const date = new Date(blog.created_at).toLocaleString("en-US", { timeZone: 'Asia/Kolkata' });
 
 
-  const handleClick = () => {
-    setLoader(true);
-  }
 
   return (
-    <Link className='w-[100%]' href={`/blog/${blog._id}`} onClick={() => handleClick()}>
-      {loader ? (
-        <div className='card-loader'>
-          <DNA
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="dna-loading"
-            wrapperStyle={{}}
-            wrapperClass="dna-wrapper"
-          />
-        </div>
-      ) : (
+    <Link className='w-[100%]' href={`/blog/${blog._id}`} >
+     
         <div className="single-post-wrap-vertical style-white">
       <div className="thumb">
         <img src={blog.thumbnail} alt="img" />
@@ -59,7 +44,7 @@ const VerticalCard = (props: Props) => {
           </div>
         </div>
     </div>
-      )}
+      
     </Link>
   )
 }

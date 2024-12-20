@@ -1,43 +1,53 @@
 "use client"
 import HeroCard from "../molecules/HeroCard";
-import { memo, ReactNode } from "react";
+import { memo, ReactNode, useState } from "react";
 import VerticalCard from "../molecules/VerticalCard";
 import OverlayCard from "../molecules/OverlayCard";
 import HorizontalCard from "../molecules/HorizontalCard";
 import Carousel from "../molecules/Carousel";
+import { DNA } from "react-loader-spinner";
 function HomePage(props: any) {
   const { blogs } = props;
-
-  const sliderCards = [
-    <HeroCard 
-      blog={blogs[0]}
-      key={1}
-    />,
-    <HeroCard 
-      blog={blogs[1]}
-      key={2}
-    />,
-    <HeroCard 
-      blog={blogs[2]}
-      key={3}
-    />
-  ];
+  const [loader, setLoader] = useState<boolean>(false);
+  const handleClick = () => {
+    setLoader(true);
+  }
   
   return (
     <>
+    {loader ? (
+        <div className='card-loader'>
+          <DNA
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </div>
+      ) : (
       <div className="container">
         <div className="flex items-center justify-center flex-col gap-[1rem]" >
-         <div className="md:h-[500px] w-[100%] h-[500px]" >
+         <div className="md:h-[500px] w-[100%] h-[500px]" onClick={()=>handleClick()}>
          <Carousel
          autoSlide={true}
          slideInterval={4000}
         >
-          {sliderCards}
+           {
+          blogs.map((blog:any,index:any)=>{
+            return (
+              <HeroCard 
+              blog={blog}
+              key={`${blog.title}${index}`}
+            />
+          )})
+        }
           </Carousel>
           </div> 
        
         {/* <HeroCard blog={blogs[0]} /> */}
-        <div className="md:flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col hidden"   >
+        <div className="md:flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col hidden" onClick={()=>handleClick()}  >
         <Carousel
         visibleCards={4}
         >
@@ -50,7 +60,7 @@ function HomePage(props: any) {
         }
          </Carousel>
         </div>
-        <div className="flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col md:hidden"   >
+        <div className="flex items-center justify-between h-[350px] w-[100%] md:flex-row flex-col md:hidden" onClick={()=>handleClick()}  >
         <Carousel
         visibleCards={1}>
         {
@@ -88,6 +98,8 @@ function HomePage(props: any) {
   }
 `}</style>
       </div >
+      )
+    }
     </>
   );
 }
