@@ -5,24 +5,18 @@ import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
 import { DNA } from 'react-loader-spinner'
 import Image from 'next/image';
-
-
 type Props = {
   variant?: string;
   blog: any;
   tag?: string;
 }
-
 const HorizontalCard = (props: Props) => {
   const { variant, blog, tag } = props;
   const [loader, setLoader] = useState<boolean>(false);
   const date = new Date(blog.created_at).toLocaleString("en-US", { timeZone: 'Asia/Kolkata' });
-
-
   const handleClick = () => {
     setLoader(true);
   }
-
   return (
     <Link href={`/blog/${blog._id}`} onClick={() => handleClick()}>
       {loader ? (
@@ -40,10 +34,7 @@ const HorizontalCard = (props: Props) => {
         <div className="single-post-list-wrap">
           <div className="media">
             <div className="media-left">
-              <div className='relative h-[100%] w-[100%]' >
-                <Image src={blog.thumbnail} alt="img" loading='lazy' height={54} width={90} />
-              </div>
-
+              <Image src={blog.thumbnail} alt="img" loading='lazy' height={54} width={90} />
             </div>
             <div className="media-body">
               <div className="details">
@@ -68,5 +59,4 @@ const HorizontalCard = (props: Props) => {
     </Link>
   )
 }
-
 export default memo(HorizontalCard)
