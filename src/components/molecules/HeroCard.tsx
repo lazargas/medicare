@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import '@/styles/Card.css'
 import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
@@ -76,4 +76,4 @@ const HeroCard = (props: Props) => {
   )
 }
 
-export default HeroCard
+export default memo(HeroCard)
