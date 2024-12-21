@@ -1,27 +1,19 @@
 import dbConnect, { ConnectionObject } from '@/lib/dbConnect';
 import { NextResponse } from 'next/server';
+
 export async function GET(req: Request, context: any) {
   try {
-    const { author_id } = await context.params;
     const url = new URL(req.url);
     const fields = url.searchParams.get('fields');
     const page = parseInt(url.searchParams.get('page') || '1');
-    const limit = parseInt(url.searchParams.get('limit') || '10');
-    
-    // Validate input parameters
-    if (!author_id) {
-      return NextResponse.json({
-        success: false,
-        error: "Author ID is required"
-      }, { status: 400 });
-    }
+    const limitParam = url.searchParams.get('limit');
 
     const connection: ConnectionObject = await dbConnect();
     const db = connection.db!;
-    const articlesCollection = db.collection("Articles_v2");
+    const articlesCollection = db.collection("Categories_v2");
 
-    // Create projection and index
-    let projection:any = {};
+    // Create projection for selected fields
+    let projection: any = {};
     if (fields) {
       const fieldArray = fields.split(',');
       fieldArray.forEach(field => {
@@ -30,35 +22,47 @@ export async function GET(req: Request, context: any) {
     }
 
     // Create compound index for better query performance
-    // Move this to a database setup script instead of creating on every request
-    await articlesCollection.createIndex({ author_id: 1, created_at: -1 }, { background: true });
+    await articlesCollection.createIndex({ created_at: -1 }, { background: true });
 
-    const pipeline = [
-      { $match: { author_id: author_id } },
-      { $sort: { created_at: -1 } },
-      { $skip: (page - 1) * limit },
-      { $limit: limit }
+    // Base pipeline with sorting
+    let pipeline: any[] = [
+      { $sort: { created_at: -1 } }
     ];
 
-    // Cache headers for performance
+    // Add projection if fields are specified
+    if (Object.keys(projection).length > 0) {
+      pipeline.push({ $project: projection });
+    }
+
+    // Add pagination only if limit is specified
+    if (limitParam) {
+      const limit = parseInt(limitParam);
+      pipeline.push(
+        { $skip: (page - 1) * limit },
+        { $limit: limit }
+      );
+    }
+
     const headers = new Headers({
       'Cache-Control': 'public, max-age=60'
     });
 
+    // Get data and total count in parallel
     const [articlesData, totalCount] = await Promise.all([
       articlesCollection.aggregate(pipeline).toArray(),
-      articlesCollection.countDocuments({ author_id: author_id })
+      articlesCollection.countDocuments({})
     ]);
 
+    // Return response with pagination only if limit is specified
     return NextResponse.json({
       success: true,
       data: articlesData,
-      pagination: {
+      pagination: limitParam ? {
         total: totalCount,
         page,
-        limit,
-        totalPages: Math.ceil(totalCount / limit)
-      }
+        limit: parseInt(limitParam),
+        totalPages: Math.ceil(totalCount / parseInt(limitParam))
+      } : null
     }, { headers });
 
   } catch (error) {

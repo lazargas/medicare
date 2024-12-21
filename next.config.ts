@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['lh3.googleusercontent.com', 'medicaldialougearticleimages.s3.amazonaws.com'],
+    domains: ['lh3.googleusercontent.com', 'medicaldialougearticleimages.s3.amazonaws.com','medicaldialougearticleimages.s3.eu-north-1.amazonaws.com','placehold.co'],
   },
   async headers() {
     return [

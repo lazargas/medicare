@@ -1,6 +1,6 @@
 "use client"
 import HeroCard from "../molecules/HeroCard";
-import { memo, ReactNode, useState } from "react";
+import { memo, ReactNode, useEffect, useState } from "react";
 import VerticalCard from "../molecules/VerticalCard";
 import OverlayCard from "../molecules/OverlayCard";
 import HorizontalCard from "../molecules/HorizontalCard";
@@ -82,7 +82,7 @@ function HomePage(props: any) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] px-[1.5rem] " >
         {
-          blogs.slice(18,32).map((blog: any, index: any) => {
+          blogs.slice(18,34).map((blog: any, index: any) => {
             return (
               <HorizontalCard key={`${blog.title}${index}`} blog={blog} />
             )

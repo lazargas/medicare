@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import "@/styles/grid.css";
 import { putArticlePublic } from '@/lib/api';
 import { DNA } from 'react-loader-spinner';
+import VerticalCard from '../molecules/VerticalCard';
 type Props = {
     blogs: any[],
     title: string,
@@ -37,29 +38,11 @@ const Grid = (props: Props) => {
                     <>
                         <h1 className="grid-title">{title}</h1>
                         <div className="grid-template">
-                            {blogs.map((blog: any) => (
-                                <div key={blog._id} className='flex flex-col' >
-                                    <Link href={`/blog/${blog._id}`} onClick={() => handleClick()} className={`${loader ? "hidden" : ""}`} >
-                                        <div className="card">
-                                            <img
-                                                src={blog.thumbnail}
-                                                alt="thumbnail"
-                                                className="thumbnail"
-                                            />
-                                            <div className="content">
-                                                <h2 className="grid-blog-title">{blog.title}</h2>
-                                                <p className="blog-content-grid">{blog.content}</p>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                    {
-                                        isAdmin &&
-                                        <div className='p-[1.5rem] flex items-center justify-center gap-[1.5rem]' >
-                                            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => handleApproveBlog(blog)} >Approve</button>
-                                            {/* <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>    */}
-                                        </div>
-                                    }
-                                </div>
+                            {blogs.map((blog: any,index:any) => (
+                                <VerticalCard
+                                blog={blog}
+                                key={`${blog.title}${index}`}
+                                />
                             ))}
                         </div>
                     </>

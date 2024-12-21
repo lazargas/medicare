@@ -1,5 +1,4 @@
 import "../blog.css";
-import Navbar from '@/components/atoms/Navbar';
 import Link from 'next/link';
 import { getArticleById, getBlogsByNumber, getUserById } from '@/lib/api';
 import BlogFormatter from "@/components/atoms/BlogContent";
@@ -25,13 +24,12 @@ export default async function BlogPage(context: any) {
     title: blogData.title,
     content: blogData.content,
     views: blogData.views,
-    tags: blogData.tags, // Assuming tags have a 'name' property
+    tags: blogData.tags, 
     author: userData?.full_name,
-    email: userData?.email // Assuming author has a 'name' field
+    email: userData?.email 
   };
   return (
     <>
-      <Navbar />
       {
         !session && <OverlayWarning />
       }

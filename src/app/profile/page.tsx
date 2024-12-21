@@ -12,7 +12,9 @@ const page = async (props: Props) => {
     const userData = await getUserByEmail(session?.user?.email!);
     let blogs = [];
     if (session && session?.user) {
-        blogs = await getBlogsForProfile(userData._id); 
+        blogs = await getBlogsForProfile(userData._id,{
+            limit:100
+        }); 
     }
    
     return (

@@ -25,7 +25,7 @@ const VerticalCard = (props: Props) => {
       <div className="single-post-wrap-vertical style-white">
         <div className="thumb">
           <div className='relative h-[100%] w-[100%]' >
-            <Image src={blog.thumbnail} alt="img" loading='lazy' height={172} width={286} />
+            <Image src={blog.thumbnail || 'https://placehold.co/400/png'} alt="img" loading='lazy' height={172} width={286} />
           </div>
           {/* <div className="tag-base tag-blue" >
           {tag}

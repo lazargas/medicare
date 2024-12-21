@@ -5,6 +5,7 @@ import { MdDateRange } from "react-icons/md"
 import Link from 'next/link'
 import { DNA } from 'react-loader-spinner'
 import Image from 'next/image';
+import { Placeholder } from 'react-select/animated';
 type Props = {
   variant?: string;
   blog: any;
@@ -34,7 +35,7 @@ const HorizontalCard = (props: Props) => {
         <div className="single-post-list-wrap">
           <div className="media">
             <div className="media-left">
-              <Image src={blog.thumbnail} alt="img" loading='lazy' height={54} width={90} />
+              <Image src={blog.thumbnail && blog.thumbnail.length!==0 ? blog.thumbnail :'https://placehold.co/400'} alt="img" loading='lazy' height={54} width={90} />
             </div>
             <div className="media-body">
               <div className="details">

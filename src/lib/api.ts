@@ -72,13 +72,59 @@ export const postBlog = async (blog: any, tags: any[], user: any): Promise<boole
     }
 }
 
-export const getBlogsForProfile = async (authorId: any): Promise<any[]> => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const blogs = [];
-    const response = await axios.get(`${baseUrl}/api/articles/authorId/${authorId}`);
-    const articles = response.data.data;
-    return articles;
-}
+// export const getBlogsForProfile = async (authorId: any): Promise<any[]> => {
+//     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+//     const response = await axios.get(`${baseUrl}/api/articles/authorId/${authorId}`);
+//     const articles = response.data.data;
+//     return articles;
+// }
+
+interface PaginatedResponse {
+    success: boolean;
+    data: any[];
+    pagination: {
+      total: number;
+      page: number;
+      limit: number;
+      totalPages: number;
+    };
+  }
+  
+  export const getBlogsForProfile = async (
+    authorId: string,
+    options: {
+      page?: number;
+      limit?: number;
+      fields?: string[];
+    } = {}
+  ): Promise<any[]> => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const { page = 1, limit = 10, fields } = options;
+  
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString()
+      });
+  
+      if (fields?.length) {
+        params.append('fields', fields.join(','));
+      }
+  
+      const response = await axios.get<PaginatedResponse>(
+        `${baseUrl}/api/articles/authorId/${authorId}?${params}`
+      );
+  
+      if (response.data.success) {
+        return response.data.data;
+      }
+  
+      return [];
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+      return [];
+    }
+  }
 
 export const getBlogs = async (): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -92,6 +138,12 @@ export const getBlogs = async (): Promise<any> => {
 export const getTags = async (): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await axios.get(`${baseUrl}/api/tags`);
+    return response.data.data;
+}
+
+export const getCategories = async (): Promise<any> => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const response = await axios.get(`${baseUrl}/api/categories`);
     return response.data.data;
 }
 
@@ -250,7 +302,7 @@ export async function putUser(userData: any, id: any) {
 
 getTagNameById
 
-export function getTagNameById(tags: any, blogs: any):Map<string,string> | undefined {
+export function getTagNameById(tags: any, blogs: any): Map<string, string> | undefined {
     try {
         const tagMapper: Map<string, string> = new Map();
         for (const tag of tags) {
@@ -264,7 +316,7 @@ export function getTagNameById(tags: any, blogs: any):Map<string,string> | undef
             const tag = tagMapper.get(blog.tags[0]);
             blogMapper.set(blog._id, tag ? tag : "");
         }
-       return blogMapper;
+        return blogMapper;
     }
     catch (e: any) {
         console.error("Error in getting tag name by id");
@@ -273,9 +325,9 @@ export function getTagNameById(tags: any, blogs: any):Map<string,string> | undef
 
 export async function getBlogsByNumber(number: number) {
     try {
-        
+
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const response = await axios.get(`${baseUrl}/api/articles/number/${number.toString()}`); 
+        const response = await axios.get(`${baseUrl}/api/articles/number/${number.toString()}`);
         if (!response.data.data) {
             return [];
         }
@@ -285,3 +337,98 @@ export async function getBlogsByNumber(number: number) {
         console.error("Error in getting blogs by number by id");
     }
 }
+
+// export async function getPublicBlogs() {
+//     try {
+//         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+//         const response = await axios.get(`${baseUrl}/api/articles/public`);
+//         if (!response.data.data) {
+//             return [];
+//         }
+//         return response.data.data;
+//     }
+//     catch (e: any) {
+//         console.error("Error in getting blogs by number by id");
+//     }
+// }
+
+interface PaginationOptions {
+    page?: number;
+    limit?: number;
+    fields?: string[];
+    cache?: RequestCache;
+  }
+  
+  export async function getPublicBlogs(options: PaginationOptions = {}):Promise<any> {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const { page = 1, limit = 10, fields, cache = 'force-cache' } = options;
+  
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString()
+      });
+  
+      if (fields?.length) {
+        params.append('fields', fields.join(','));
+      }
+  
+      const response = await axios.get(
+        `${baseUrl}/api/articles/public?${params}`,
+        {
+          headers: {
+            'Cache-Control': 'max-age=60'
+          }
+        }
+      );
+  
+      if (!response.data.success) {
+        console.error("Failed to fetch public blogs:", response.data.error);
+        return [];
+      }
+  
+      return {
+        blogs: response.data.data,
+        pagination: response.data.pagination
+      };
+  
+    } catch (error) {
+      console.error("Error in getting public blogs:", error);
+      return { blogs: [], pagination: null };
+    }
+  }
+
+  interface PaginationOptions {
+    page?: number;
+    limit?: number;
+  }
+  
+  export const getBlogsByCategory = async (
+    category: string, 
+    options: PaginationOptions = {}
+  ): Promise<any> => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const { page, limit } = options;
+      
+      // Build query parameters
+      const params = new URLSearchParams();
+      if (page) params.append('page', page.toString());
+      if (limit) params.append('limit', limit.toString());
+      
+      const queryString = params.toString();
+      const url = `${baseUrl}/api/categories/${category}${queryString ? `?${queryString}` : ''}`;
+      const response = await axios.get(url);
+      if (response.data.success) {
+        return {
+          blogs: response.data.data,
+          pagination: response.data.pagination
+        };
+      }
+      
+      return { blogs: [], pagination: null };
+    } catch (error) {
+      console.error("Error fetching blogs by category:", error);
+      return { blogs: [], pagination: null };
+    }
+  }

@@ -27,7 +27,7 @@ const HeroCard = (props: Props) => {
               <div className="col-lg-6">
                 <div className="thumb after-left-top">
                   <div className='relative h-[100%] w-[100%]' > 
-                  <Image src={blog.thumbnail} alt="img" loading='lazy' className="w-full h-auto" height={408} width={680} />
+                  <Image src={blog.thumbnail || "https://placehold.co/400"} alt="img" loading='lazy' className="w-full h-auto" height={408} width={680} />
                   </div>
                 </div>
               </div>

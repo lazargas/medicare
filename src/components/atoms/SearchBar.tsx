@@ -10,27 +10,30 @@ interface Tag {
 interface SearchNavProps {
   tags: Tag[];
   blogs: any[];
+  categories:any[];
 }
 
 const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
+  const categories = props.categories;
   const [blogs, setBlogs] = useState(props.blogs);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);
+  const [filteredTags, setFilteredTags] = useState<any[]>(categories);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
 
   // Group tags by category
-  const groupedTags = React.useMemo(() => {
-    return filteredTags.reduce((acc, tag) => {
-      if (!acc[tag.category]) {
-        acc[tag.category] = [];
+  const groupedCategories = React.useMemo(() => {
+    return filteredTags.reduce((acc, category) => {
+      if (!acc[category.main_category]) {
+        acc[category.main_category] = [];
       }
-      acc[tag.category].push(tag);
+      acc[category.main_category].push(category.secondary_category);
       return acc;
     }, {} as Record<string, Tag[]>);
   }, [filteredTags]);
-
+ 
   const handleSearchResultClick = (blog: any) => {
     const id = blog._id;
     if (window) {
@@ -38,8 +41,8 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
     }
   }
 
-  function onTagSelect(tag: any) {
-    window.location.href = `/tags/${tag.name}`
+  function onCategorySelect(category: any) {
+    window.location.href = `/categories/${category}`
   }
 
   const handleSearch = (query: string) => {
@@ -70,7 +73,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  const sortedCategories = Object.keys(groupedTags).sort();
+  const sortedCategories = Object.keys(groupedCategories).sort();
 
   return (
     <div className="w-full px-[1.5rem]">
@@ -132,8 +135,8 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
 
       {/* Categories - Desktop */}
       <div className="hidden md:flex flex-wrap gap-6 bg-white rounded-lg">
-        {sortedCategories.map((category) => (
-          <div key={category} className="group relative">
+        {sortedCategories.map((category,index) => (
+          <div key={`${category}${index}`} className="group relative">
             <div className="cursor-pointer py-2 px-3 hover:bg-gray-50 rounded-md transition-colors">
               <div className="flex items-center justify-center" >
                 <h3 className="font-semibold text-gray-800">{category} </h3>
@@ -146,13 +149,13 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
             </div>
 
             <div className="absolute max-h-[300px] overflow-scroll invisible group-hover:visible opacity-0 group-hover:opacity-100 bg-white shadow-lg rounded-md mt-1 py-2 w-48 z-40 transition-all duration-200 ease-in-out left-0">
-              {groupedTags[category].map((tag) => (
+              {groupedCategories[category].map((subCategory:any,index:any) => (
                 <button
-                  key={tag.name}
-                  onClick={() => onTagSelect?.(tag)}
+                  key={`${subCategory}${index}`}
+                  onClick={() => onCategorySelect?.(subCategory)}
                   className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
                 >
-                  {tag.name}
+                  {subCategory}
                 </button>
               ))}
             </div>
@@ -164,22 +167,22 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
       {isMobileMenuOpen && (
         <div className="md:hidden">
           <div className="space-y-4 bg-white rounded-lg p-4 border border-gray-200">
-            {sortedCategories.map((category) => (
-              <div key={category} className="space-y-2">
+            {sortedCategories.map((category,index) => (
+              <div key={`${category}${index}`} className="space-y-2">
                 <h3 className="font-semibold text-gray-800 text-sm">
                   {category}
                 </h3>
                 <div className="pl-4 space-y-2">
-                  {groupedTags[category].map((tag) => (
+                  {groupedCategories[category].map((subCategory:string,index:any) => (
                     <button
-                      key={tag.name}
+                    key={`${subCategory}${index}`}
                       onClick={() => {
-                        onTagSelect?.(tag);
+                        onCategorySelect?.(subCategory);
                         setIsMobileMenuOpen(false);
                       }}
                       className="block w-full text-left text-sm text-gray-600 hover:text-blue-600 py-1"
                     >
-                      {tag.name}
+                      {subCategory}
                     </button>
                   ))}
                 </div>

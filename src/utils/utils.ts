@@ -30,14 +30,12 @@ export async function uploadToS3(file: File, type: 'image' | 'thumbnail') {
       fileName: `${type}-${Date.now()}-${file.name}`,
       fileType: file.type,
     });
-    console.log(response.data,"Response from S3");
     const { uploadUrl, imageUrl } = await response.data;
     const uploadImageResponse = await axios.put(uploadUrl, file,{
       headers:{
         'Content-Type':file.type
       }
     });
-    console.log(uploadImageResponse.data,"Response from S3");
     return imageUrl;
   } catch (error) {
     console.error('Error uploading to S3:', error);

@@ -7,21 +7,38 @@ import SignIn from './SignIn'
 import SignOut from './SignOut'
 import menu from '@/assets/Images/menu.svg'
 import NavbarList from './NavbarList'
-import { getBlogs, getTags } from '@/lib/api'
+import { getBlogs, getCategories, getTags } from '@/lib/api'
 import SearchNav from './SearchBar'
 
-type Props = {}
+interface Tag {
+  name: string;
+  category: string;
+}
+
+type Props = {
+  tags?:Tag[];
+  blogs?:any[];
+  session?:any;
+}
 
 const Navbar = async (props: Props) => {
-  const session = await auth();
-  const tags = await getTags();
-  const blogs = await getBlogs();
+  let {tags,blogs,session} = props;
+  if(!tags || tags.length===0){
+    tags = await getTags();
+  }
+  if(!blogs || blogs.length===0){
+    blogs = await getBlogs();
+  }
+  if(!session || !session.user){
+    session = await auth();
+  }
+  const categories = await getCategories();
+ 
   return (
     <>
      <NavbarList session={session} />
-     <SearchNav tags={tags} blogs={blogs} />
+     <SearchNav tags={tags!} blogs={blogs!} categories={categories}/>
     </>
-    
   )
 }
 
