@@ -1,5 +1,4 @@
 import dbConnect, { ConnectionObject } from "@/lib/dbConnect";
-import Tag from "@/lib/models/Tag";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, context: any) {
@@ -15,3 +14,4 @@ export async function GET(req: Request, context: any) {
     return NextResponse.json({ success: false, error: (error as Error).message }, { status: 400 });
   }
 }
+

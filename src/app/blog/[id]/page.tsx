@@ -1,12 +1,14 @@
 import "../blog.css";
 import Link from 'next/link';
-import { getArticleById, getBlogsByNumber, getUserById } from '@/lib/api';
+import { getArticleById, getBlogsByNumber, getTagNameById, getTagNameByIds, getUserById } from '@/lib/api';
 import BlogFormatter from "@/components/atoms/BlogContent";
 import { auth } from "@/auth";
 import OverlayWarning from "@/components/atoms/OverlayWarning";
 import Footer from "@/components/molecules/Footer";
 import HorizontalCard from "@/components/molecules/HorizontalCard";
 import Image from "next/image";
+import Breadcrumb from "@/components/atoms/Breadcrumb";
+import TagList from "@/components/atoms/TagList";
 
 export default async function BlogPage(context: any) {
   const { id } = await context.params as { id: string };
@@ -24,16 +26,18 @@ export default async function BlogPage(context: any) {
     title: blogData.title,
     content: blogData.content,
     views: blogData.views,
-    tags: blogData.tags, 
     author: userData?.full_name,
-    email: userData?.email 
+    email: userData?.email,
+    breadcrumbs:blogData.breadcrumbs,
   };
+  const tags = await getTagNameByIds(blogData.tags);
   return (
     <>
       {
         !session && <OverlayWarning />
       }
       <div className="blog-container">
+        <Breadcrumb breadcrumbs={blog.breadcrumbs} />
         <h1 className="blog-title">{blog.title}</h1>
         <p className="blog-meta">
           <Link href={`/author/${blog.email}`} >
@@ -49,8 +53,13 @@ export default async function BlogPage(context: any) {
         <div className="blog-content">
           <BlogFormatter content={blog.content} />
         </div>
+        <div >
+        <h2 className="pb-[0.75rem] text-[1.5rem]" >Relevant Tags</h2>
+        <TagList tags={tags} />
+        </div>
+        
       </div>
-      <h2 className="px-[1.5rem] font-[1.5rem]" >Related Posts</h2>
+      <h2 className="px-[1.5rem] pb-[0.75rem] text-[1.5rem]" >Related Posts</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] px-[1.5rem] " >
         {
           blogs.map((blog: any, index: any) => {

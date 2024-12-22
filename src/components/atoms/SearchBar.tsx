@@ -25,14 +25,22 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
 
   // Group tags by category
   const groupedCategories = React.useMemo(() => {
-    return filteredTags.reduce((acc, category) => {
-      if (!acc[category.main_category]) {
-        acc[category.main_category] = [];
-      }
-      acc[category.main_category].push(category.secondary_category);
-      return acc;
-    }, {} as Record<string, Tag[]>);
-  }, [filteredTags]);
+  const grouped = filteredTags.reduce((acc, category) => {
+    if (!acc[category.main_category]) {
+      acc[category.main_category] = new Set<string>();
+    }
+    acc[category.main_category].add(category.secondary_category);
+    return acc;
+  }, {} as Record<string, Set<string>>);
+
+  // Convert Sets to arrays with proper type assertion
+  return Object.fromEntries(
+    Object.entries(grouped).map(([key, set]) => [
+      key, 
+      Array.from(set as Set<string>)
+    ])
+  );
+}, [filteredTags]) as Record<string, string[]>;
  
   const handleSearchResultClick = (blog: any) => {
     const id = blog._id;

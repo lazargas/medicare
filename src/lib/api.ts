@@ -432,3 +432,20 @@ interface PaginationOptions {
       return { blogs: [], pagination: null };
     }
   }
+
+  export const getTagNameByIds = async (tagIds: string[]): Promise<any[]> => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const response = await axios.post(`${baseUrl}/api/tags/name`, {
+        tagIds: tagIds
+      });
+      if (response.data.success) {
+        return response.data.data;
+      }
+      
+      return [];
+    } catch (error) {
+      console.error("Error fetching tag names:", error);
+      return [];
+    }
+  }
