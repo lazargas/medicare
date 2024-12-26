@@ -193,7 +193,6 @@ const Carousel: React.FC<CarouselProps> = ({
         <AnimatePresence 
           initial={false} 
           custom={direction}
-          mode="wait"
         >
           {visibleItems.map((child, index) => (
             <motion.div
