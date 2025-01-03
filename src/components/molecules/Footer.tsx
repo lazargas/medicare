@@ -2,6 +2,7 @@
 import React, { memo } from 'react';
 import { Facebook, Twitter, Youtube, Instagram } from 'lucide-react';
 import HorizontalCard from './HorizontalCard';
+import Link from 'next/link';
 type Props = {
   blogs: any[];
 }
@@ -14,8 +15,7 @@ const Footer = ({ blogs }: Props) => {
           <div>
             <h2 className="text-2xl text-black font-bold mb-4">ABOUT US</h2>
             <p className="text-black mb-6">
-            Welcome to Doctor News Daily, your trusted source for the latest in healthcare, medical research, and wellness. Our mission is to provide accurate, evidence-based, and up-to-date information to help individuals make informed decisions about their health and well-being.
-            </p>
+            Welcome to Doctor News Daily, your trusted source for accurate healthcare updates, medical breakthroughs, and wellness insights. We simplify complex medical research, ensuring accessibility and credibility. Our expert team delivers transparent, research-backed content to empower informed health decisions. Stay informed, stay healthy with Doctor News Daily.            </p>
             <div className="flex space-x-4">
               <a href="#" className="bg-blue-600 p-2 rounded-full hover:bg-blue-700">
                 <Facebook size={20} />
@@ -36,14 +36,11 @@ const Footer = ({ blogs }: Props) => {
             <h2 className="text-2xl text-black font-bold mb-4">CONTACTS</h2>
             <div className="space-y-4">
               <p className="flex items-center gap-2">
-                <span className="text-black">Betiahata, Gorakhpur</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <span className="text-black">+91 98916 25882</span>
+                <span className="text-black">Sky One, Pune, Maharashtra, 411006, IND</span>
               </p>
               <div className="space-y-1">
-                <p className="text-black">Info@elivistaconsortium.com</p>
-                <p className="text-black">Support@elivistaconsortium.com</p>
+                <p className="text-black">Info@doctornewsdaily.com</p>
+                <p className="text-black">Support@doctornewsdaily.com</p>
               </div>
             </div>
           </div>
@@ -51,19 +48,19 @@ const Footer = ({ blogs }: Props) => {
             <h2 className="text-2xl text-black font-bold mb-4">ADS & LEGAL</h2>
             <div className="space-y-4">
               <p className="flex items-center gap-2">
-                <span className="text-black">Advertise</span>
+                <Link href={`/`} className="text-black">Advertise</Link>
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-black">Advertise Policy</span>
+                <Link href={`/`} className="text-black">Advertise Policy</Link>
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-black">Terms And Condition</span>
+                <Link href={`/tnc`} className="text-black">Terms And Condition</Link>
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-black">Privacy Policy</span>
+                <Link href={`/`} className="text-black">Privacy Policy</Link>
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-black">Editorial Policy</span>
+                <Link href={`/`} className="text-black">Editorial Policy</Link>
               </p>
             </div>
           </div>

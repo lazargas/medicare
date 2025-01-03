@@ -51,7 +51,7 @@
     padding-left: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .banner-inner .banner-details .post-meta-single li .tag-base {
