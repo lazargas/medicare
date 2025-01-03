@@ -19,7 +19,7 @@ const TagList = ({ tags = [] }: TagListProps) => {
           href={`/tags/${tag.name}`}
           className="px-4 py-1.5 bg-gray-50 text-gray-700 text-sm rounded-full 
                    border border-gray-200 hover:border-red-200
-                   hover:bg-red-50 hover:text-red-900
+                   hover:bg-[#d8e7ff] hover:text-red-900
                    transition-all duration-300 ease-in-out
                    shadow-sm hover:shadow-md"
         >
