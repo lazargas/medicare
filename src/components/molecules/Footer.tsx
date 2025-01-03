@@ -14,9 +14,7 @@ const Footer = ({ blogs }: Props) => {
           <div>
             <h2 className="text-2xl text-black font-bold mb-4">ABOUT US</h2>
             <p className="text-black mb-6">
-              Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Quis ipsum ultrices gravida. Risus
-              commodo viverra maecenas accumsan lacus vel facilisis.
+            Welcome to Doctor News Daily, your trusted source for the latest in healthcare, medical research, and wellness. Our mission is to provide accurate, evidence-based, and up-to-date information to help individuals make informed decisions about their health and well-being.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="bg-blue-600 p-2 rounded-full hover:bg-blue-700">

@@ -31,10 +31,10 @@ const HeroCard = (props: Props) => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-6 align-self-center">
+              <div className="col-lg-6 align-self-start">
                 <div className="banner-details mt-4 mt-lg-0">
-                  <div className="post-meta-single">
-                    {/* <ul className='flex gap-[1.5rem]' >
+                  {/*<div className="post-meta-single">
+                     <ul className='flex gap-[1.5rem]' >
                       <li>
                         <div className="tag-base tag-blue">
                           {tag}
@@ -44,8 +44,9 @@ const HeroCard = (props: Props) => {
                       <svg stroke="currentColor" fill="#000" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"></path></svg>
                         <p className='date'>{date}</p>
                       </li>
-                    </ul> */}
+                    </ul> 
                   </div>
+                  */}
                   <h2 className='text-black text-xl font-semibold' title={blog.title}>{blog.title}</h2>
                   <p className='card-content'>{blog.content}</p>
                   <div className='relative h-[48px] w-[150px]'>
