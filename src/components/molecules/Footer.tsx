@@ -7,7 +7,7 @@ type Props = {
 }
 const Footer = ({ blogs }: Props) => {
   return (
-    <footer className="bg-navy-900 p-[1rem] mt-[1rem] bg-[#F5F5DC] border-t border-black border-t-1 text-white">
+    <footer className="bg-navy-900 p-[1rem] mt-[1rem] bg-[#F0F8FF] border-t border-black border-t-1 text-white">
       <div className="flex items-center justify-center flex-col">
         <div className="grid grid-cols-1 md:grid-cols-4 px-[1.5rem] gap-8 p-[0.75rem]">
           {/* About Us Section */}
@@ -89,7 +89,7 @@ const Footer = ({ blogs }: Props) => {
               <a href="#" className="text-black font-[8px] md:font-[16px] ">Terms & Conditions</a>
               <a href="#" className="text-black font-[8px] md:font-[16px] ">Privacy Policy</a>
             </div>
-            <p className="text-gray-400">Copyright © 2024 Elivista</p>
+            <p className="text-gray-400">Copyright © 2024 Doctor News Daily</p>
           </div>
         </div>
       </div>

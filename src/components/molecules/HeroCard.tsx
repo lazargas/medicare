@@ -46,7 +46,7 @@ const HeroCard = (props: Props) => {
                       </li>
                     </ul> */}
                   </div>
-                  <h2 title={blog.title}>{blog.title}</h2>
+                  <h2 className='text-black text-xl font-semibold' title={blog.title}>{blog.title}</h2>
                   <p className='card-content'>{blog.content}</p>
                   <div className='relative h-[48px] w-[150px]'>
                     <div className="btn btn-blue">

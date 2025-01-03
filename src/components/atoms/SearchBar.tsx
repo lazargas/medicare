@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Search, Menu, X } from 'lucide-react';
+import "@/styles/Searchbar.css";
 
 interface Tag {
   name: string;
@@ -142,12 +143,12 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
       </div>
 
       {/* Categories - Desktop */}
-      <div className="hidden md:flex flex-wrap gap-6 bg-white rounded-lg">
+      <div className="hidden md:flex flex-wrap gap-6 rounded-lg bg-[#F0F8FF] p-2 rounded-[4px]">
         {sortedCategories.map((category,index) => (
           <div key={`${category}${index}`} className="group relative">
             <div className="cursor-pointer py-2 px-3 hover:bg-gray-50 rounded-md transition-colors">
               <div className="flex items-center justify-center" >
-                <h3 className="font-semibold text-gray-800">{category} </h3>
+                <h3 className="font-semibold ">{category} </h3>
                 <svg width="33" height="15" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.932 5.748L10.036 4.632L14.56 9.204L19.084 4.632L20.188 5.748L14.56 11.388L8.932 5.748Z" fill="black" />
                 </svg>
@@ -156,7 +157,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
 
             </div>
 
-            <div className="absolute max-h-[300px] overflow-scroll invisible group-hover:visible opacity-0 group-hover:opacity-100 bg-white shadow-lg rounded-md mt-1 py-2 w-48 z-40 transition-all duration-200 ease-in-out left-0">
+            <div className="hiding-scrollbar absolute max-h-[300px] overflow-scroll invisible group-hover:visible opacity-0 group-hover:opacity-100 bg-white shadow-lg rounded-md mt-1 py-2 w-48 z-40 transition-all duration-200 ease-in-out left-0">
               {groupedCategories[category].map((subCategory:any,index:any) => (
                 <button
                   key={`${subCategory}${index}`}

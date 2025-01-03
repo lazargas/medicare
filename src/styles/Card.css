@@ -31,7 +31,7 @@
 
 .banner-inner .thumb.after-left-top::after {
     content: "";
-    background: #ffbe00;
+    background: #7A9BC9;
     position: absolute;
     left: -30px;
     top: -30px;
@@ -185,13 +185,10 @@
 }
 
 h2 {
-    font-size: 40px;
-    line-height: 1.3380952381;
-    font-weight: 600;
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 3;
   }
 
 .card-content {

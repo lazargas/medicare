@@ -118,6 +118,7 @@ interface CarouselProps {
   visibleCards?: number;
   autoSlide?: boolean;
   slideInterval?: number;
+  title?:string;
 }
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -125,22 +126,23 @@ const Carousel: React.FC<CarouselProps> = ({
   visibleCards = 1,
   autoSlide = false,
   slideInterval = 3000,
+  title=''
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const totalChildren = React.Children.count(children);
 
   // Memoize handlers to prevent unnecessary rerenders
-  const handleNext = React.useCallback((e:any) => {
-    if(e)
-    e.stopPropagation();
+  const handleNext = React.useCallback((e: any) => {
+    if (e)
+      e.stopPropagation();
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % totalChildren);
   }, [totalChildren]);
 
-  const handlePrev = React.useCallback((e:any) => {
-    if(e)
-    e.stopPropagation();
+  const handlePrev = React.useCallback((e: any) => {
+    if (e)
+      e.stopPropagation();
     setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalChildren) % totalChildren);
   }, [totalChildren]);
@@ -180,7 +182,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   // Memoize visible items calculation
-  const visibleItems = React.useMemo(() => 
+  const visibleItems = React.useMemo(() =>
     Array.from({ length: visibleCards }).map((_, index) => {
       const itemIndex = (currentIndex + index) % totalChildren;
       return React.Children.toArray(children)[itemIndex];
@@ -188,54 +190,62 @@ const Carousel: React.FC<CarouselProps> = ({
   );
 
   return (
-    <div className="relative w-[100%] h-[100%] overflow-hidden p-6">
-      <div className="relative w-full flex">
-        <AnimatePresence 
-          initial={false} 
-          custom={direction}
-        >
-          {visibleItems.map((child, index) => (
-            <motion.div
-              key={(currentIndex + index) % totalChildren}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              style={{
-                position: 'absolute',
-                width: `${100 / visibleCards}%`,
-                height: '100%',
-                left: `${(index * 100) / visibleCards}%`,
-                willChange: 'transform, opacity',
-              }}
-            >
-              {child}
-            </motion.div>
-          ))}
-        </AnimatePresence>
+    <div className='flex flex-col h-[100%] w-full' >
+     <div className='pr-6 flex flex-col' >
+        <p className="text-[18px] font-semibold" >{title}</p>
+        <div className="h-[4px] bg-black w-[60px]" ></div>
       </div>
+      <div className="relative w-[100%] h-[100%] overflow-hidden px-6">
+     
+     <div className="relative w-full flex h-[100%]">
+       <AnimatePresence
+         initial={false}
+         custom={direction}
+       >
+         {visibleItems.map((child, index) => (
+           <motion.div
+             key={(currentIndex + index) % totalChildren}
+             custom={direction}
+             variants={variants}
+             initial="enter"
+             animate="center"
+             exit="exit"
+             style={{
+               position: 'absolute',
+               width: `${100 / visibleCards}%`,
+               height: '100%',
+               left: `${(index * 100) / visibleCards}%`,
+               willChange: 'transform, opacity',
+             }}
+           >
+             {child}
+           </motion.div>
+         ))}
+       </AnimatePresence>
+     </div>
 
-      <button
-        onClick={(e)=>handlePrev(e)}
-        className="absolute top-1/2 -left-4 -translate-y-1/2 rotate-90 transform hover:scale-110 transition-transform"
-        style={{ willChange: 'transform' }}
-      >
-        <svg width="60" height="30" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.932 5.748L10.036 4.632L14.56 9.204L19.084 4.632L20.188 5.748L14.56 11.388L8.932 5.748Z" fill="black" />
-        </svg>
-      </button>
+     <button
+       onClick={(e) => handlePrev(e)}
+       className="absolute top-1/2 -left-4 -translate-y-1/2 rotate-90 transform hover:scale-110 transition-transform"
+       style={{ willChange: 'transform' }}
+     >
+       <svg width="60" height="30" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M8.932 5.748L10.036 4.632L14.56 9.204L19.084 4.632L20.188 5.748L14.56 11.388L8.932 5.748Z" fill="black" />
+       </svg>
+     </button>
 
-      <button
-        onClick={(e)=>handleNext(e)}
-        className="absolute top-[50%] -right-4 -translate-y-1/2 -rotate-90 transform hover:scale-110 transition-transform"
-        style={{ willChange: 'transform' }}
-      >
-        <svg width="60" height="30" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.932 5.748L10.036 4.632L14.56 9.204L19.084 4.632L20.188 5.748L14.56 11.388L8.932 5.748Z" fill="black" />
-        </svg>
-      </button>
+     <button
+       onClick={(e) => handleNext(e)}
+       className="absolute top-[50%] -right-4 -translate-y-1/2 -rotate-90 transform hover:scale-110 transition-transform"
+       style={{ willChange: 'transform' }}
+     >
+       <svg width="60" height="30" viewBox="0 0 33 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M8.932 5.748L10.036 4.632L14.56 9.204L19.084 4.632L20.188 5.748L14.56 11.388L8.932 5.748Z" fill="black" />
+       </svg>
+     </button>
+   </div>
     </div>
+  
   );
 };
 

@@ -35,7 +35,7 @@ const HorizontalCard = (props: Props) => {
         <div className="single-post-list-wrap">
           <div className="media">
             <div className="media-left">
-              <Image src={blog.thumbnail && blog.thumbnail.length!==0 ? blog.thumbnail :'https://placehold.co/400'} alt="img" loading='lazy' height={54} width={90} />
+              <img src={blog.thumbnail && blog.thumbnail.length!==0 ? blog.thumbnail :'https://placehold.co/400'} alt="img" loading='lazy' className='h-[61px]' />
             </div>
             <div className="media-body">
               <div className="details">

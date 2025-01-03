@@ -1,7 +1,8 @@
 .single-post-list-wrap {
-    margin-bottom: 17px;
+    /* margin-bottom: 17px; */
     max-width: 350px;
     padding: 0.5rem;
+    min-width: 300px;
   }
 
   .media {

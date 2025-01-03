@@ -38,7 +38,7 @@ const OverlayCard = (props: Props) => {
       ) : (
         <div className="single-post-wrap-overlay style-overlay">
           <div className="thumb">
-            <div className='relative h-[100%] w-[100%]' >
+            <div className='relative h-[150px] w-[100%]' >
               <Image src={blog.thumbnail} alt="img" loading='lazy' height={163} width={273} className='hidden md:block' />
               <Image src={blog.thumbnail} alt="img" loading='lazy' height={163} width={350} className='md:hidden block' />
             </div>

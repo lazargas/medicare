@@ -99,11 +99,11 @@ const page = async (props: Props) => {
     }];
   return (
     <>
-    <OverlayCard blog={blog[0]} tag='Tags' />
-    <VerticalCard blog={blog[0]} tag='Tags' />
+    {/* <OverlayCard blog={blog[0]} tag='Tags' />
+    <VerticalCard blog={blog[0]} tag='Tags' /> */}
     <HeroCard blog={blog[0]} tag='Tags' />
-    <HorizontalCard blog={blog[0]} tag='Tags' />
-    <Footer blogs={blog} />
+    {/* <HorizontalCard blog={blog[0]} tag='Tags' /> */}
+    {/* <Footer blogs={blog} /> */}
     </>
   )
 }
