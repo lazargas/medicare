@@ -7,7 +7,7 @@ type Props = {
 }
 const Footer = ({ blogs }: Props) => {
   return (
-    <footer className="bg-navy-900 p-[1rem] mt-[1rem] bg-[#F0F8FF] border-t border-black border-t-1 text-white">
+    <footer className="bg-navy-900 p-[1rem] mt-[1rem] bg-[#d8e7ff]  text-white">
       <div className="flex items-center justify-center flex-col">
         <div className="grid grid-cols-1 md:grid-cols-4 px-[1.5rem] gap-8 p-[0.75rem]">
           {/* About Us Section */}

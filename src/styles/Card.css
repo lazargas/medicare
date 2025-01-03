@@ -31,7 +31,7 @@
 
 .banner-inner .thumb.after-left-top::after {
     content: "";
-    background: #7A9BC9;
+    background: #d8e7ff;
     position: absolute;
     left: -30px;
     top: -30px;

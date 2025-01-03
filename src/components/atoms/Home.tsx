@@ -113,7 +113,7 @@ function HomePage(props: any) {
                 })
               }
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] px-[1.5rem] " >
+            <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] " >
               {
                 blogs.slice(18, 34).map((blog: any, index: any) => {
                   return (

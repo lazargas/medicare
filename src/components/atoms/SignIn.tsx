@@ -19,7 +19,7 @@ const SignIn = async () => {
         }
       } 
     >
-      <button className="flex items-center justify-center gap-[1rem] py-[0.5rem] md:px-[1rem] rounded-[5px]" type="submit">
+      <button className="flex items-center justify-center gap-[1rem] bg-[#d8e7ff] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200" type="submit">
         <p className="hidden md:block text-xl font-semibold" >Sign In</p>
         <Image src={googleLogo} height={24} width={24} alt="Sign In with google" />
       </button>
