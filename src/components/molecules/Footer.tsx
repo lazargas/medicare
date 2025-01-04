@@ -51,13 +51,13 @@ const Footer = ({ blogs }: Props) => {
                 <Link href={`/`} className="text-black">Advertise</Link>
               </p>
               <p className="flex items-center gap-2">
-                <Link href={`/`} className="text-black">Advertise Policy</Link>
+                <Link href={`/tnc#advertising-policy`} className="text-black">Advertise Policy</Link>
               </p>
               <p className="flex items-center gap-2">
-                <Link href={`/tnc`} className="text-black">Terms And Condition</Link>
+                <Link href={`/tnc#tnc`} className="text-black">Terms And Condition</Link>
               </p>
               <p className="flex items-center gap-2">
-                <Link href={`/`} className="text-black">Privacy Policy</Link>
+                <Link href={`/tnc#privacy-policy`} className="text-black">Privacy Policy</Link>
               </p>
               <p className="flex items-center gap-2">
                 <Link href={`/`} className="text-black">Editorial Policy</Link>
@@ -80,9 +80,9 @@ const Footer = ({ blogs }: Props) => {
         <div className=" w-full border-t border-gray-400">
           <div className="flex flex-col md:flex-row justify-between items-center p-[0.75rem]">
             <div className="flex space-x-4 mb-4 md:mb-0">
-            <a href="#" className="text-black font-[8px] md:font-[16px] ">About</a>
-              <a href="#" className="text-black font-[8px] md:font-[16px] ">Terms & Conditions</a>
-              <a href="#" className="text-black font-[8px] md:font-[16px] ">Privacy Policy</a>
+            <a href={`/tnc`} className="text-black font-[8px] md:font-[16px] ">About</a>
+              <a href={`/tnc#tnc`} className="text-black font-[8px] md:font-[16px] ">Terms & Conditions</a>
+              <a  href={`/tnc#privacy-policy`} className="text-black font-[8px] md:font-[16px] ">Privacy Policy</a>
             </div>
             <p className="text-gray-400">Copyright © 2024 Doctor News Daily</p>
           </div>

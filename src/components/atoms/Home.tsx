@@ -42,7 +42,6 @@ function HomePage(props: any) {
                   })
                 }
               </div>
-
               <Carousel
                 autoSlide={true}
                 slideInterval={4000}
@@ -59,7 +58,6 @@ function HomePage(props: any) {
                   })
                 }
               </Carousel>
-
               <div className="hidden md:flex flex-col gap-[0rem]" >
                 <div className='pl-2 flex flex-col' >
                   <p className="text-[18px] font-semibold" >Editorial</p>
@@ -93,7 +91,6 @@ function HomePage(props: any) {
                 visibleCards={1}
                 title="Latest News"
                 >
-                
                 {
                   blogs.map((blog: any, index: any) => {
                     return (
@@ -104,7 +101,6 @@ function HomePage(props: any) {
               </Carousel>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 w-[100%] " >
-
               {
                 blogs.slice(7, 17).map((blog: any, index: any) => {
                   return (
