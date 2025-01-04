@@ -73,7 +73,7 @@
     background-color: #fff;
   }
 
-  @media (max-width: 1599px) {
+  @media (max-width: 782px) {
     .grid-template {
       display: flex;
       min-width: 100%;

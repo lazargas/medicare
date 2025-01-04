@@ -18,7 +18,7 @@ const SignOut = async () => {
       }
     >
       <button type="submit">
-         <p className="bg-[#F0F8FF] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200" >Sign Out</p>
+         <p className="bg-[#d8e7ff] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200" >Sign Out</p>
       </button>
     </form>
   )
