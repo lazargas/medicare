@@ -13,7 +13,7 @@ export const postUser = async (user: any): Promise<void> => {
         }
         const response = await axios.get(`${baseUrl}/api/users/email/${user.email}`);
         if (response.data && response.data.data) {
-
+              
         }
         const data = await axios.post(`${baseUrl}/api/users`, {
             ...body
@@ -147,7 +147,7 @@ export const getCategories = async (): Promise<any> => {
     return response.data.data;
 }
 
-export const getUserByEmail = async (email: string): Promise<any> => {
+export const getUserByEmail = async (email: string | null | undefined): Promise<any> => {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const response = await axios.get(`${baseUrl}/api/users/email/${email}`);
     return response.data.data;

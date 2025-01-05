@@ -61,12 +61,12 @@ const RegistrationForm = ({ user, userData }: any) => {
   const labelClassName = "block text-sm font-medium text-gray-700";
 
   return (
-    <div className="min-h-screen bg-gray-50 w-full py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
+    <div id='complete' className="min-h-screen bg-gray-50 w-full py-6 sm:py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-[95%] sm:max-w-2xl mx-auto bg-white p-4 sm:p-6 rounded-lg shadow-md">
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
           {
             user ?
-              'Edit Profile'
+              'Complete Profile'
               :
               'Registration'
           }
@@ -393,7 +393,7 @@ const RegistrationForm = ({ user, userData }: any) => {
                 onChange={handleInputChange}
               />
               <label htmlFor="terms_accepted" className="ml-2 block text-sm text-gray-700">
-                I accept the Terms & Conditions
+                I accept the <a className='text-[#0000EE]' href="/tnc#tnc">Terms & Conditions</a>
               </label>
             </div>
 
@@ -408,7 +408,7 @@ const RegistrationForm = ({ user, userData }: any) => {
                 onChange={handleInputChange}
               />
               <label htmlFor="privacy_policy_accepted" className="ml-2 block text-sm text-gray-700">
-                I accept the Privacy Policy
+                I accept the <a className='text-[#0000EE]' href="/tnc#privacy-policy">Privacy Policy</a>
               </label>
             </div>
           </div>
@@ -420,7 +420,7 @@ const RegistrationForm = ({ user, userData }: any) => {
               disabled={loading}
               className="w-full sm:w-auto min-w-[200px] flex justify-center py-3 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Editing...' : 'Edit Profile'}
+              {loading ? 'Completing...' : 'Complete Profile'}
             </button>
           </div>
         </form>

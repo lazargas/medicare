@@ -1,7 +1,10 @@
 import React from 'react'
 import '@/styles/overlayComponent.css';
 import SignIn from './SignIn';
-type Props = {}
+import Link from 'next/link';
+type Props = {
+    type?:'not logged in' | 'not registered';
+}
 const OverlayWarning = (props: Props) => {
     return (
         <div className={`overlay-container`} >
@@ -10,7 +13,7 @@ const OverlayWarning = (props: Props) => {
                     <div className="p-4 md:p-5">
                         <div className='flex flex-col gap-[1.5rem] justify-center items-center m-[2.5rem] text-center' >
                             <div>
-                                <h1 className='text-xl md:text-xl font-sans' >To continue accessing our services, we kindly ask you to log in to your account. Please note that, as part of our service, we may share certain non-sensitive data with advertising companies to provide you with personalized ads and offers tailored to your interests.
+                                <h1 className='text-xl md:text-xl font-sans' >To continue accessing our services, we kindly ask you to {props.type==='not logged in' ? 'log in to your account' : 'Complete your Registration' }. Please note that, as part of our service, we may share certain non-sensitive data with advertising companies to provide you with personalized ads and offers tailored to your interests.
 
 Your privacy is important to us, and we handle your data responsibly. For more details on how your data is used, please refer to our Privacy Policy.
  </h1>
@@ -38,7 +41,14 @@ Your privacy is important to us, and we handle your data responsibly. For more d
                                 </button>
                             </div>
 
-                            <div ><SignIn /></div>
+                            <div >
+                                {
+                                    props.type==='not logged in' ? <SignIn /> :
+                                    <a href={'/profile#complete'} className="flex items-center justify-center gap-[1rem] bg-[#d8e7ff] font-semibold text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200" type="submit">
+                                     Complete Your Profile
+                                    </a>
+                                }
+                                </div>
                         </div>
                     </div>
                 </div>

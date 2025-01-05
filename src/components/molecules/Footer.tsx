@@ -48,7 +48,7 @@ const Footer = ({ blogs }: Props) => {
             <h2 className="text-2xl text-black font-bold mb-4">ADS & LEGAL</h2>
             <div className="space-y-4">
               <p className="flex items-center gap-2">
-                <Link href={`/`} className="text-black">Advertise</Link>
+                <Link href={`/tnc`} className="text-black">Advertise</Link>
               </p>
               <p className="flex items-center gap-2">
                 <Link href={`/tnc#advertising-policy`} className="text-black">Advertise Policy</Link>
@@ -60,7 +60,7 @@ const Footer = ({ blogs }: Props) => {
                 <Link href={`/tnc#privacy-policy`} className="text-black">Privacy Policy</Link>
               </p>
               <p className="flex items-center gap-2">
-                <Link href={`/`} className="text-black">Editorial Policy</Link>
+                <Link href={`/tnc`} className="text-black">Editorial Policy</Link>
               </p>
             </div>
           </div>

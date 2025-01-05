@@ -8,8 +8,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   async signIn({user, account, profile}) {
     await postUser(user);
     return true;
- }
+ },
+ async redirect({ url, baseUrl }) {
+  return `${baseUrl}/profile#complete`
 }
+},
 });
 
 
