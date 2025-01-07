@@ -35,7 +35,7 @@ const NavbarList = async (props: Props) => {
         session && session.user ?
           (<>
             <div className='flex items-center justify-center gap-[2rem]'>
-              <Link className='hidden md:block bg-[#F0F8FF] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200 ' href="/create">Create Blog</Link>
+              <Link className='hidden md:block bg-[#F0F8FF] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200 ' href="/create">Submit Article</Link>
               <Link href="/profile" className='bg-[#F0F8FF] text-[18px] text-black hover:text-white px-4 py-2 rounded-[20px] hover:bg-blue-700 transition duration-200' >Profile</Link>
               <div className='hidden md:block ' >
                 <SignOut />
@@ -47,7 +47,7 @@ const NavbarList = async (props: Props) => {
             <div className={`absolute h-screen w-full hidden `} >
               <div className='flex flex-col items-center justify-center gap-[2rem]'>
                 <Link href="/registration" className='bg-[#87CEEB] ' >Register</Link>
-                <Link href="/create" className='bg-[#87CEEB]' >Create Blog</Link>
+                <Link href="/create" className='bg-[#87CEEB]' >Submit Article</Link>
                 <Link href="/profile" className='bg-[#87CEEB]' >Profile</Link>
                 <SignOut />
               </div>

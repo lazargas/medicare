@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { auth } from '@/auth'
 import NavbarList from './NavbarList'
-import { getBlogs, getCategories, getTags } from '@/lib/api'
+import { getBlogs, getCategories, getSearchContent, getTags } from '@/lib/api'
 import SearchNav from './SearchBar'
 
 interface Tag {
@@ -16,12 +16,9 @@ type Props = {
 }
 
 const Navbar = async (props: Props) => {
-  let {tags,blogs,session} = props;
-  if(!tags || tags.length===0){
-    tags = await getTags();
-  }
+  let {blogs,session} = props;
   if(!blogs || blogs.length===0){
-    blogs = await getBlogs();
+    blogs = await getSearchContent();
   }
   if(!session || !session.user){
     session = await auth();
@@ -31,7 +28,7 @@ const Navbar = async (props: Props) => {
   return (
     <>
      <NavbarList session={session} />
-     <SearchNav tags={tags!} blogs={blogs!} categories={categories}/>
+     <SearchNav blogs={blogs!} categories={categories}/>
     </>
   )
 }

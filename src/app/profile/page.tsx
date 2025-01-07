@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import Navbar from '@/components/atoms/Navbar';
+import NavbarList from '@/components/atoms/NavbarList';
 import Profile from '@/components/atoms/Profile';
 import SignOut from '@/components/atoms/SignOut';
 import Footer from '@/components/molecules/Footer';
@@ -19,13 +19,13 @@ const page = async (props: Props) => {
    
     return (
         <>
-            <Navbar />
+           <NavbarList session={session} />
             {
                 session && session?.user ?
                     <>
                         <div className='w-full md:hidden h-auto flex flex-col items-end justify-end px-[2rem] gap-[1rem] font-semibold' >
                             <SignOut />
-                            <Link className='text-xl' href="/create">Create Blog</Link>
+                            <Link className='text-xl' href="/create">Submit Article</Link>
                         </div>
                         <Profile userData={userData} currentUser={session?.user} user={session?.user} blogs={blogs} title="Your Posts" />
                     </>

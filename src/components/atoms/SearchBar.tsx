@@ -9,12 +9,11 @@ interface Tag {
 }
 
 interface SearchNavProps {
-  tags: Tag[];
   blogs: any[];
   categories:any[];
 }
 
-const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
+const SearchNav: React.FC<SearchNavProps> = ({...props }) => {
   const categories = props.categories;
   const [blogs, setBlogs] = useState(props.blogs);
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,8 +22,7 @@ const SearchNav: React.FC<SearchNavProps> = ({ tags, ...props }) => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-
-  // Group tags by category
+  
   const groupedCategories = React.useMemo(() => {
   const grouped = filteredTags.reduce((acc, category) => {
     if (!acc[category.main_category]) {

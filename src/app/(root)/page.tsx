@@ -1,6 +1,6 @@
 import HomePage from "@/components/atoms/Home";
 import { auth } from "@/auth";
-import { getBlogs, getPublicBlogs } from "@/lib/api";
+import { getPublicBlogs } from "@/lib/api";
 import Footer from "@/components/molecules/Footer";
 import Navbar from "@/components/atoms/Navbar";
 
@@ -16,7 +16,6 @@ export default async function Home() {
   return (
     <>
       <Navbar
-      blogs={blogs}
       /> 
       <div className="flex flex-col w-full h-auto">
         <HomePage

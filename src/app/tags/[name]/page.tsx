@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import { getTagIdByName } from "@/lib/api";
 import Grid from "@/components/atoms/Grid";
 import { searchByTagId } from "@/utils/utils";

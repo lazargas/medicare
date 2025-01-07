@@ -101,7 +101,7 @@ const page = async (props: Props) => {
     <>
     {/* <OverlayCard blog={blog[0]} tag='Tags' />
     <VerticalCard blog={blog[0]} tag='Tags' /> */}
-    <HeroCard blog={blog[0]} tag='Tags' />
+    {/* <HeroCard blog={blog[0]} tag='Tags' /> */}
     {/* <HorizontalCard blog={blog[0]} tag='Tags' /> */}
     {/* <Footer blogs={blog} /> */}
     </>

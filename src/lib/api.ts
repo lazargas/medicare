@@ -372,7 +372,6 @@ interface PaginationOptions {
       if (fields?.length) {
         params.append('fields', fields.join(','));
       }
-  
       const response = await axios.get(
         `${baseUrl}/api/articles/public?${params}`,
         {
@@ -448,4 +447,18 @@ interface PaginationOptions {
       console.error("Error fetching tag names:", error);
       return [];
     }
+  }
+
+  export const getSearchContent = async () => {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await axios.get(`${baseUrl}/api/articles/searchParams`);
+        if (response.data.success) {
+          return response.data.data;
+        }
+        return [];
+      } catch (error) {
+        console.error("Error fetching Search content", error);
+        return [];
+      }
   }

@@ -2,7 +2,6 @@ import { signIn } from "@/auth"
 import Image from "next/image"
 import googleLogo from "@/assets/Images/google.svg"
 import { auth } from "@/auth"
-import { useContext } from "react"
 import { BlogContext } from "@/context/BlogContext"
 
  

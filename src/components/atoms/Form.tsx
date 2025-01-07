@@ -2,7 +2,7 @@
 import { BlogContext } from '@/context/BlogContext';
 import { getTags, postBlog } from '@/lib/api';
 import { imageToBase64 } from '@/utils/utils';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import placeholder from '@/assets/Images/placeholder.jpg';
 import Image from 'next/image';
 import { set } from 'mongoose';

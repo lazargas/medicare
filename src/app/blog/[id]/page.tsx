@@ -43,16 +43,22 @@ export default async function BlogPage(context:any) {
   ]);
 
   // Fetch author data after getting blog data
-  const userData = await getUserByEmail(session?.user?.email);
-  const authorData = await getUserById(blogData.author_id) as AuthorData;
-  const tags = await getTagNameByIds(blogData.tags);
+  // const userData = await getUserByEmail(session?.user?.email);
+  // const authorData = await getUserById(blogData.author_id) as AuthorData;
+  // const tags = await getTagNameByIds(blogData.tags);
+
+  const [userData, authorData, tags] = await Promise.all([
+    getUserByEmail(session?.user?.email),
+    getUserById(blogData.author_id),
+    getTagNameByIds(blogData.tags,)
+  ]);
 
   const formattedDate = new Date(blogData.created_at).toLocaleDateString();
   const previewBlogs = relatedBlogs.slice(0, 3);
 
   return (
     <>
-      {(!session || !userData.work_category) && <OverlayWarning 
+      {(!session || !userData.work_category ) && <OverlayWarning 
       type={!session ? "not logged in" : "not registered"}
       />}
       
