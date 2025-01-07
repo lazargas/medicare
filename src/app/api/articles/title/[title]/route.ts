@@ -8,7 +8,6 @@ export async function GET(req: Request, context: any) {
     const db = connection.db!;
     const articlesCollection = db.collection("Articles_v2");
     let articlesData = await articlesCollection.find({title:title}).toArray();
-    const articles  = await articlesCollection.find({}).toArray();
     if (!articlesData) {
       return NextResponse.json({
         success: false,

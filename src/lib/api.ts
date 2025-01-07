@@ -243,7 +243,8 @@ export async function postTags(tags: { name: string, category: string }[]): Prom
                 continue;
             }
             const existingTagResponse = await axios.get(`${baseUrl}/api/tags/name/${tag.name}`);
-            if (existingTagResponse.data.data && existingTagResponse.data.data[0] && existingTagResponse.data.data[0]._id && tag.category === existingTagResponse.data.data[0].category) {
+            
+            if (existingTagResponse.data.data && existingTagResponse.data.data[0] && existingTagResponse.data.data[0]._id && tag.name === existingTagResponse.data.data[0].name) {
                 tagIds.push(existingTagResponse.data.data[0]._id);
             }
             else {
@@ -416,7 +417,7 @@ interface PaginationOptions {
       if (limit) params.append('limit', limit.toString());
       
       const queryString = params.toString();
-      const url = `${baseUrl}/api/categories/${category}${queryString ? `?${queryString}` : ''}`;
+      const url = `${baseUrl}/api/categories/name/${category}${queryString ? `?${queryString}` : ''}`;
       const response = await axios.get(url);
       if (response.data.success) {
         return {
@@ -461,4 +462,34 @@ interface PaginationOptions {
         console.error("Error fetching Search content", error);
         return [];
       }
+  }
+
+  export const postCategories = async (categories:any) => {
+    try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const categoryIds: string[] = [];
+        for (const category of categories) {
+            if (!category.main_category || !category.secondary_category) {
+                continue;
+            }
+            const existingCategory = await axios.get(`${baseUrl}/api/categories/name/${encodeURIComponent(category.secondary_category)}`);
+            console.log(existingCategory);
+            console.log(existingCategory.data.data[0]._id);
+            if (existingCategory.data.data && existingCategory.data.data[0] && existingCategory.data.data[0]._id && category.secondary_category === existingCategory.data.data[0].secondary_category) {
+                categoryIds.push(existingCategory.data.data[0]._id);
+            }
+            else {
+                const response = await axios.post(`${baseUrl}/api/categories`, {
+                    ...category
+                });
+                if (response.data && response.data.data._id) {
+                    categoryIds.push(response.data.data._id);
+                }
+            }
+        }
+        return categoryIds;
+    } catch (error: any) {
+        console.error("Error in posting Categories in api", error);
+        throw error;
+    }
   }

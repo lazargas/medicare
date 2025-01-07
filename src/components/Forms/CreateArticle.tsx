@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { AlertCircle, Upload, X } from 'lucide-react';
 import axios from 'axios';
 import { uploadToS3 } from '@/utils/utils';
-import { getUserByEmail, postArticle, postTags, putUser } from '@/lib/api';
+import { getUserByEmail, postArticle, postCategories, postTags, putUser } from '@/lib/api';
 interface Breadcrumb {
   level: string;
   text: string;
@@ -12,6 +12,10 @@ interface Breadcrumb {
 interface Tag {
   name: string;
   category: string;
+}
+interface Category {
+  main_category:string;
+  secondary_category:string;
 }
 interface FormData {
   title: string;
@@ -22,6 +26,7 @@ interface FormData {
   thumbnail: string;
   breadcrumbs: Breadcrumb[];
   tags: any[];
+  categories: any[];
 }
 interface User {
   email: string;
@@ -40,7 +45,8 @@ const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userDa
     breadcrumbs: [
       { level: 'Level_1', text: 'Home', link: 'https://medicaldialogues.in/' }
     ],
-    tags: []
+    tags: [],
+    categories: []
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -67,6 +73,19 @@ const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userDa
       return {
         ...prev,
         tags: newTags
+      };
+    });
+  };
+  const handleCategoryChange = (index: number,field:keyof Category, value: string) => {
+    setFormData(prev => {
+      const newCategories = [...prev.categories];
+      newCategories[index] = {
+        ...newCategories[index],
+        [field]: value
+      };
+      return {
+        ...prev,
+        categories: newCategories
       };
     });
   };
@@ -172,17 +191,20 @@ const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userDa
       const author_id = userData._id;
       const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/users/${author_id}${Math.random()}`;
       const tagIds: string[] = await postTags(formData.tags);
+      const categoryIds:string[] = await postCategories(formData.categories);
       const articleBody = {
         ...formData,
         author_id,
         URL,
-        tags: tagIds
+        tags: tagIds,
+        categories:categoryIds
       };
+      
       const articleData = await postArticle(articleBody);
       const userPutData = {
         full_name: userData.full_name,
         email: userData.email,
-        article_ids: [...userData.article_ids, articleData._id]
+        article_ids:Array.from(new Set([...userData.article_ids, articleData._id]))
       };
       await putUser(userPutData, articleData._id);
       window.location.href = '/blog/success';
@@ -191,6 +213,22 @@ const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userDa
     } finally {
       setLoading(false);
     }
+  };
+
+
+
+  const addCategory = () => {
+    setFormData(prev => ({
+      ...prev,
+      categories: [...prev.categories, { main_category: '', secondary_category: '' }]
+    }));
+  };
+
+  const removeCategory = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      categories: prev.categories.filter((_, i) => i !== index)
+    }));
   };
   const inputClassName = "mt-1 block w-[80%] md:w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black text-sm";
   const labelClassName = "block text-sm font-medium text-gray-700";
@@ -407,6 +445,81 @@ const CreateArticleForm: React.FC<{ user: any, userData: any}> = ({ user, userDa
               </p>
             )}
           </div>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <label className={labelClassName}>Categories</label>
+              <button
+                type="button"
+                onClick={addCategory}
+                className="text-sm text-gray-600 hover:text-black px-2 py-1 rounded hover:bg-gray-100"
+              >
+                + Add Category
+              </button>
+            </div>
+            {formData.categories.map((category, categoryIndex) => (
+              <div key={categoryIndex} className="space-y-4 bg-gray-50 p-4 rounded-md">
+                <div className="flex flex-col sm:flex-row gap-4 items-start">
+                  <div className="flex-1 w-full">
+                    <input
+                      type="text"
+                      placeholder="Secondary Category Name"
+                      className={inputClassName}
+                      value={category.secondary_category}
+                      onChange={(e) => handleCategoryChange(categoryIndex,'secondary_category', e.target.value)}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => removeCategory(categoryIndex)}
+                      className="text-red-500 hover:text-red-700 px-2 py-1 rounded"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+                <div className="flex-1 w-full">
+                  <input
+                    type="text"
+                    placeholder="Main Category Name"
+                    className={inputClassName}
+                    value={category.main_category}
+                    onChange={(e) => handleCategoryChange(categoryIndex, 'main_category', e.target.value)}
+                  />
+                </div>
+                
+                {/* Subcategories */}
+                {/* <div className="pl-4 space-y-2">
+                  {category.subcategories.map((subcategory, subcategoryIndex) => (
+                    <div key={subcategoryIndex} className="flex flex-col sm:flex-row gap-4 items-start">
+                      <div className="flex-1 w-full">
+                        <input
+                          type="text"
+                          placeholder="Subcategory Name"
+                          className={inputClassName}
+                          value={subcategory}
+                          onChange={(e) => handleSubcategoryChange(categoryIndex, subcategoryIndex, e.target.value)}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeSubcategory(categoryIndex, subcategoryIndex)}
+                        className="text-red-500 hover:text-red-700 px-2 py-1 rounded"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div> */}
+              </div>
+            ))}
+            {formData.categories.length === 0 && (
+              <p className="text-sm text-gray-500 italic text-center bg-gray-50 p-4 rounded-md">
+                No categories added. Click "Add Category" to start adding categories.
+              </p>
+            )}
+          </div>
+
           {/* Submit Button */}
           <div className="mt-8 flex justify-center">
             <button

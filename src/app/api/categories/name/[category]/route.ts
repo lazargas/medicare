@@ -22,10 +22,10 @@ export async function GET(req: Request, context: any) {
     const connection: ConnectionObject = await dbConnect();
       const db = connection.db!;
       const categoriesCollection = db.collection("Categories_v2");
-    const categoryDoc = await categoriesCollection.findOne(
+    const categoryDoc = await categoriesCollection.find(
       { secondary_category: category }
        // Only get _id field for efficiency
-    );
+    ).toArray();
     
     
     if (!categoryDoc) {
@@ -35,27 +35,7 @@ export async function GET(req: Request, context: any) {
       }, { status: 404 });
     }
     // Prepare base pipeline for articles
-    const pipeline = [
-      { 
-        $match: { 
-           categories: { $elemMatch: { $eq: categoryDoc._id } } // Match string ID in array
-        } 
-      },
-      { $sort: { created_at: -1 } },
-    ];
-
-    const articlesCollection = db.collection("Articles_v2");
-    
-    // Create index for better performance
-    await articlesCollection.createIndex({ categories: 1, created_at: -1 });
-
-    // Get data and count in parallel
-    let [articles, totalCount] = await Promise.all([
-      articlesCollection.aggregate(pipeline).toArray(),
-      articlesCollection.countDocuments({ categories: categoryDoc._id })
-    ]);
-
-    console.log(articles);
+   
     
     // Set cache headers
     const headers = new Headers({
@@ -64,13 +44,7 @@ export async function GET(req: Request, context: any) {
 
     return NextResponse.json({
       success: true,
-      data: articles,
-      pagination: limitParam ? {
-        total: totalCount,
-        page,
-        limit: parseInt(limitParam),
-        totalPages: Math.ceil(totalCount / parseInt(limitParam))
-      } : null
+      data: categoryDoc,
     }, { headers });
 
   } catch (error) {

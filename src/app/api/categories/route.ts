@@ -69,7 +69,89 @@ export async function GET(req: Request, context: any) {
     console.error("Error fetching articles data:", error);
     return NextResponse.json({
       success: false,
-      error: "Failed to fetch articles"
+      error: "Failed to fetch Categories"
     }, { status: 500 });
+  }
+}
+
+interface Category {
+  category_combination: string;
+  main_category: string;
+  secondary_category: string;
+}
+
+export async function POST(req: Request) {
+  try {
+    // Parse the request body
+    const categoryData = await req.json();
+
+    // Validate the request body
+    if (!categoryData.main_category || !categoryData.secondary_category) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Both main category and secondary category are required'
+        },
+        {
+          status: 400
+        }
+      );
+    }
+
+    // Create category_combination
+    const category_combination = `${categoryData.main_category}::${categoryData.secondary_category}`;
+    categoryData.category_combination = category_combination;
+
+    // Establish database connection
+    const connection: ConnectionObject = await dbConnect();
+    if (!connection.db) {
+      throw new Error('Database connection failed');
+    }
+
+    // Get the categories collection
+    const categoriesCollection = connection.db.collection('Categories_v2');
+
+    // Check if category combination already exists
+    const existingCategory = await categoriesCollection.findOne({
+      category_combination: category_combination
+    });
+
+    if (existingCategory) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Category combination already exists'
+        },
+        {
+          status: 409 // Conflict status code
+        }
+      );
+    }
+
+    // Insert the new category
+    const result = await categoriesCollection.insertOne(categoryData);
+
+    // Return success response with the created category
+    return NextResponse.json({
+      success: true,
+      data: {
+        _id: result.insertedId,
+        ...categoryData
+      }
+    });
+
+  } catch (error) {
+    console.error('Error creating category:', error);
+    
+    // Return error response
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : 'An unknown error occurred'
+      },
+      {
+        status: 500
+      }
+    );
   }
 }

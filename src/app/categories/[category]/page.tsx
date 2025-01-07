@@ -5,6 +5,7 @@ export default async function Categories(context: any) {
   const { category } = await context.params;
   const categoryParams = category.trim().split("%20").join(" ");
   const { blogs } = await getBlogsByCategory(categoryParams);
+  console.log(blogs);
   return (
     <>
       {

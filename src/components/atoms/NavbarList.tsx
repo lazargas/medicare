@@ -30,7 +30,7 @@ const NavbarList = async (props: Props) => {
           />
         </div>
       } */}
-      <Link href="/"><Image src={logo} height={65} width={130} alt='logo' /></Link>
+      <a href="/"><Image src={logo} height={65} width={130} alt='logo' /></a>
       {
         session && session.user ?
           (<>
