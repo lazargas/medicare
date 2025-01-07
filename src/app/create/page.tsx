@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import Navbar from '@/components/atoms/Navbar'
+import NavbarList from '@/components/atoms/NavbarList'
 import CreateArticleForm from '@/components/Forms/CreateArticle'
 import { getUserByEmail } from '@/lib/api'
 import React from 'react'
@@ -14,7 +14,9 @@ const page = async (props: Props) => {
 
   return (
     <>
-      <Navbar />
+      <NavbarList 
+      session={session}
+      />
       {
         session && session?.user ?
           <div className='flex justify-center items-center m-[2.5rem] ' >
