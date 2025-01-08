@@ -21,6 +21,7 @@ interface BlogData {
   author_id: string;
   tags: string[];
   breadcrumbs: any[];
+  source:string;
 }
 
 interface AuthorData {
@@ -41,11 +42,6 @@ export default async function BlogPage(context:any) {
     getArticleById(id) as Promise<BlogData>,
     getBlogsByNumber(8),
   ]);
-
-  // Fetch author data after getting blog data
-  // const userData = await getUserByEmail(session?.user?.email);
-  // const authorData = await getUserById(blogData.author_id) as AuthorData;
-  // const tags = await getTagNameByIds(blogData.tags);
 
   const [userData, authorData, tags] = await Promise.all([
     getUserByEmail(session?.user?.email),
@@ -90,7 +86,60 @@ export default async function BlogPage(context:any) {
         <div className="blog-content">
           <BlogFormatter content={blogData.content} />
         </div>
+        <div className="blog-source" >
+            <strong>Source :</strong> {blogData.source}
+        </div>
+        <div className="text-xs border my-2.5 p-[5px] border-solid border-[#123d66] bg-[#fcfcfc]" >
+        <div className="space-y-4">
+        {/* Primary Disclaimer */}
+        <p className="text-base md:text-lg text-gray-800">
+          Disclaimer: This website is primarily for healthcare professionals. The content here does not replace medical advice and should not be used as medical, diagnostic, endorsement, treatment, or prescription advice. Medical science evolves rapidly, and we strive to keep our information current. If you find any discrepancies, please contact us at{' '}
+          <a href="mailto:corrections@doctornewsdaily.in" className="text-blue-600 hover:text-blue-800">
+            corrections@doctornewsdaily.in
+          </a>
+          . Read our{' '}
+          <Link href="/tnc#correction-policy" className="text-blue-600 hover:text-blue-800">
+            Correction Policy here
+          </Link>
+          .
+        </p>
 
+        {/* Secondary Disclaimer */}
+        <p className="text-base md:text-lg text-gray-800">
+          Nothing here should be used as a substitute for medical advice, diagnosis, or treatment. We do not endorse any healthcare advice that contradicts a physician's guidance. Use of this site is subject to our{' '}
+          <Link href="/tnc#tnc" className="text-blue-600 hover:text-blue-800">
+            Terms of Use
+          </Link>
+          ,{' '}
+          <Link href="/tnc#privacy-policy" className="text-blue-600 hover:text-blue-800">
+            Privacy Policy
+          </Link>
+          , and{' '}
+          <Link href="/tnc#advertising-policy" className="text-blue-600 hover:text-blue-800">
+            Advertisement Policy
+          </Link>
+          . For more details, read our{' '}
+          <Link href="/tnc#disclaimer" className="text-blue-600 hover:text-blue-800">
+            Full Disclaimer here
+          </Link>
+          .
+        </p>
+
+        {/* Note Section */}
+        <div className="mt-6">
+          <p className="text-base md:text-lg font-medium text-gray-900">
+            NOTE:{' '}
+            <span className="font-bold">
+              Join us in combating medical misinformation. If you encounter a questionable health, medical, or medical education claim, email us at{' '}
+              <a href="mailto:factcheck@doctornewsdaily.in" className="text-blue-600 hover:text-blue-800">
+                factcheck@doctornewsdaily.in
+              </a>{' '}
+              for evaluation.
+            </span>
+          </p>
+        </div>
+      </div>
+        </div>
         <div>
           <h2 className="pb-[0.75rem] text-[1.5rem]">Relevant Tags</h2>
           <TagList tags={tags} />
