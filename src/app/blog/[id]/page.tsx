@@ -92,7 +92,7 @@ export default async function BlogPage(context:any) {
         <div className="text-xs border my-2.5 p-[5px] border-solid border-[#123d66] bg-[#fcfcfc]" >
         <div className="space-y-4">
         {/* Primary Disclaimer */}
-        <p className="text-base md:text-lg text-gray-800">
+        <p className=" text-gray-800 md:text-[0.85rem] text-[0.75rem]">
           Disclaimer: This website is primarily for healthcare professionals. The content here does not replace medical advice and should not be used as medical, diagnostic, endorsement, treatment, or prescription advice. Medical science evolves rapidly, and we strive to keep our information current. If you find any discrepancies, please contact us at{' '}
           <a href="mailto:corrections@doctornewsdaily.in" className="text-blue-600 hover:text-blue-800">
             corrections@doctornewsdaily.in
@@ -105,7 +105,7 @@ export default async function BlogPage(context:any) {
         </p>
 
         {/* Secondary Disclaimer */}
-        <p className="text-base md:text-lg text-gray-800">
+        <p className=" text-gray-800 md:text-[0.85rem] text-[0.75rem]">
           Nothing here should be used as a substitute for medical advice, diagnosis, or treatment. We do not endorse any healthcare advice that contradicts a physician's guidance. Use of this site is subject to our{' '}
           <Link href="/tnc#tnc" className="text-blue-600 hover:text-blue-800">
             Terms of Use
@@ -127,7 +127,7 @@ export default async function BlogPage(context:any) {
 
         {/* Note Section */}
         <div className="mt-6">
-          <p className="text-base md:text-lg font-medium text-gray-900">
+          <p className=" font-medium md:text-[0.85rem] text-gray-900 text-[0.75rem]">
             NOTE:{' '}
             <span className="font-bold">
               Join us in combating medical misinformation. If you encounter a questionable health, medical, or medical education claim, email us at{' '}
@@ -155,7 +155,6 @@ export default async function BlogPage(context:any) {
           />
         ))}
       </div>
-
       <Footer blogs={previewBlogs} />
     </>
   );
