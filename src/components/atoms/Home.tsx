@@ -6,12 +6,16 @@ import OverlayCard from "../molecules/OverlayCard";
 import HorizontalCard from "../molecules/HorizontalCard";
 import Carousel from "../molecules/Carousel";
 import { DNA } from "react-loader-spinner";
+
 function HomePage(props: any) {
   const { blogs } = props;
   const [loader, setLoader] = useState<boolean>(false);
   const handleClick = () => {
     setLoader(true);
   }
+  
+  const {firstEditorialStartRange,firstEditorialEndRange,secondEditorialStartRange,secondEditorialEndRange,firstOverlayStartRange,firstOverlayEndRange,firstHorizontalStartRange,firstHorizontalEndRange} = props;
+
   return (
     <>
       {loader ? (
@@ -35,7 +39,7 @@ function HomePage(props: any) {
                   <div className="h-[4px] bg-black w-[35px]" ></div>
                 </div>
                 {
-                  blogs.slice(18, 22).map((blog: any, index: any) => {
+                  blogs.slice(firstEditorialStartRange,firstEditorialEndRange).map((blog: any, index: any) => {
                     return (
                       <HorizontalCard key={`${blog.title}${index}`} blog={blog} />
                     )
@@ -64,7 +68,7 @@ function HomePage(props: any) {
                   <div className="h-[4px] bg-black w-[35px]" ></div>
                 </div>
                 {
-                  blogs.slice(4, 8).map((blog: any, index: any) => {
+                  blogs.slice(secondEditorialStartRange, secondEditorialEndRange).map((blog: any, index: any) => {
                     return (
                       <HorizontalCard key={`${blog.title}${index}`} blog={blog} />
                     )
@@ -102,7 +106,7 @@ function HomePage(props: any) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 w-[100%] " >
               {
-                blogs.slice(7, 17).map((blog: any, index: any) => {
+                blogs.slice(firstOverlayStartRange, firstOverlayEndRange).map((blog: any, index: any) => {
                   return (
                     <OverlayCard key={`${blog.title}${index}`} blog={blog} />
                   )
@@ -111,7 +115,7 @@ function HomePage(props: any) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] " >
               {
-                blogs.slice(18, 34).map((blog: any, index: any) => {
+                blogs.slice(firstHorizontalStartRange, firstHorizontalEndRange).map((blog: any, index: any) => {
                   return (
                     <HorizontalCard key={`${blog.title}${index}`} blog={blog} />
                   )

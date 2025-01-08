@@ -42,3 +42,13 @@ export async function uploadToS3(file: File, type: 'image' | 'thumbnail') {
     throw new Error('Failed to upload image');
   }
 }
+
+
+export function generateTwoNumbersWithDifference(range: { min: number; max: number }, difference: number): [number, number] {
+  const { min, max } = range;
+  // Generate first random number
+  const firstNumber = Math.floor(Math.random() * (max - min - difference + 1)) + min;
+  // Generate second number that's exactly 'difference' away from first
+  const secondNumber = firstNumber + difference;
+  return [firstNumber, secondNumber];
+}
