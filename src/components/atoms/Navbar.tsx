@@ -3,6 +3,7 @@ import { auth } from '@/auth'
 import NavbarList from './NavbarList'
 import { getBlogs, getCategories, getSearchContent, getTags } from '@/lib/api'
 import SearchNav from './SearchBar'
+import AdSlots from '../molecules/AdSlots'
 
 interface Tag {
   name: string;

@@ -11,8 +11,6 @@ export async function GET(req: Request, context: any) {
       }, { status: 400 });
     }
 
-    
-
     // Get pagination params if any
     const url = new URL(req.url);
     const page = parseInt(url.searchParams.get('page') || '1');

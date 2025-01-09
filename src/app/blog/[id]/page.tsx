@@ -9,7 +9,8 @@ import Footer from "@/components/molecules/Footer";
 import HorizontalCard from "@/components/molecules/HorizontalCard";
 import Breadcrumb from "@/components/atoms/Breadcrumb";
 import TagList from "@/components/atoms/TagList";
-
+import AdSlots from "@/components/molecules/AdSlots";
+import VerticalCard from "@/components/molecules/VerticalCard";
 interface BlogData {
   id: string;
   thumbnail: string;
@@ -23,17 +24,13 @@ interface BlogData {
   breadcrumbs: any[];
   source:string;
 }
-
 interface AuthorData {
   full_name: string;
   email: string;
   work_category: string;
 }
-
 interface PageParams {
-  
 }
-
 export default async function BlogPage(context:any) {
   // Parallel fetch of initial data
   const {id} = await context.params;
@@ -42,27 +39,27 @@ export default async function BlogPage(context:any) {
     getArticleById(id) as Promise<BlogData>,
     getBlogsByNumber(8),
   ]);
-
   const [userData, authorData, tags] = await Promise.all([
     getUserByEmail(session?.user?.email),
     getUserById(blogData.author_id),
     getTagNameByIds(blogData.tags,)
   ]);
-
   const formattedDate = new Date(blogData.created_at).toLocaleDateString();
   const previewBlogs = relatedBlogs.slice(0, 3);
-
   return (
     <>
       {(!session || !userData.work_category ) && <OverlayWarning 
       type={!session ? "not logged in" : "not registered"}
       />}
-      
+      <AdSlots height={90} width={728} ></AdSlots>
+      <div className="flex items-start justify-center relative " >
+       <div className="h-[1200px] w-[160px] hidden md:flex flex-col" >
+       <AdSlots height={600} width={160} parentWidth={160} ></AdSlots>
+       <AdSlots height={600} width={160} parentWidth={160} ></AdSlots>
+        </div> 
       <div className="blog-container">
         <Breadcrumb breadcrumbs={blogData.breadcrumbs} />
-        
         <h1 className="blog-title">{blogData.title}</h1>
-        
         <p className="blog-meta">
           <Link href={`/author/${authorData.email}`}>
             <span className="font-semibold text-[#AD103A]">
@@ -72,7 +69,6 @@ export default async function BlogPage(context:any) {
           <span>-</span>
           <span>Published: {formattedDate}</span>
         </p>
-
         <Image
           src={blogData.thumbnail}
           alt={`${blogData.title} thumbnail`}
@@ -82,9 +78,11 @@ export default async function BlogPage(context:any) {
           loading="lazy"
           priority={false}
         />
-
         <div className="blog-content">
           <BlogFormatter content={blogData.content} />
+        </div>
+        <div className="h-[90px] w-full md:hidden flex flex-col" >
+        <AdSlots height={90} width={728} ></AdSlots>
         </div>
         <div className="blog-source" >
             <strong>Source :</strong> {blogData.source}
@@ -103,7 +101,6 @@ export default async function BlogPage(context:any) {
           </Link>
           .
         </p>
-
         {/* Secondary Disclaimer */}
         <p className=" text-gray-800 md:text-[0.85rem] text-[0.75rem]">
           Nothing here should be used as a substitute for medical advice, diagnosis, or treatment. We do not endorse any healthcare advice that contradicts a physician's guidance. Use of this site is subject to our{' '}
@@ -124,7 +121,6 @@ export default async function BlogPage(context:any) {
           </Link>
           .
         </p>
-
         {/* Note Section */}
         <div className="mt-6">
           <p className=" font-medium md:text-[0.85rem] text-gray-900 text-[0.75rem]">
@@ -144,9 +140,29 @@ export default async function BlogPage(context:any) {
           <h2 className="pb-[0.75rem] text-[1.5rem]">Relevant Tags</h2>
           <TagList tags={tags} />
         </div>
+        <div className="h-[90px] w-full md:hidden flex flex-col" >
+        <AdSlots height={90} width={728} ></AdSlots>
+        </div>
       </div>
-
-      <h2 className="px-[1.5rem] pb-[0.75rem] text-[1.5rem]">Related Posts</h2>
+      <div className="hidden md:flex items-start justify-center flex-col " >
+        <div>
+        <div className='pl-2 flex flex-col' >
+                  <p className="text-[18px] font-semibold" >Editorial</p>
+                  <div className="h-[4px] bg-black w-[35px]" ></div>
+      </div>
+      {
+                  relatedBlogs.slice(0,2).map((blog: any, index: any) => {
+                    return (
+                      <VerticalCard key={`${blog.title}${index}`} blog={blog} />
+                    )
+                  })
+      }
+        </div>
+      <AdSlots height={300} width={250} parentWidth={250} ></AdSlots>
+      <AdSlots height={300} width={250} parentWidth={250} ></AdSlots>
+      </div>
+      </div>
+      <h2 className="w-full px-[1.5rem] pb-[0.75rem] text-[1.5rem]">Related Posts</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 w-[100%] px-[1.5rem]">
         {relatedBlogs.map((blog:any, index:any) => (
           <HorizontalCard
@@ -155,6 +171,9 @@ export default async function BlogPage(context:any) {
           />
         ))}
       </div>
+      <div className="h-[90px] w-full md:hidden flex flex-col" >
+        <AdSlots height={90} width={728} ></AdSlots>
+        </div>
       <Footer blogs={previewBlogs} />
     </>
   );

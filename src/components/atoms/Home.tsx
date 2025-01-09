@@ -128,6 +128,8 @@ function HomePage(props: any) {
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
+    display:flex;
+    gap:1rem;
   }
 `}</style>
         </div >
