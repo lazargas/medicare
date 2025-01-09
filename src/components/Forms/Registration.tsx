@@ -235,6 +235,7 @@ const RegistrationForm = ({ user, userData }: any) => {
                   className={inputClassName}
                   value={formData.work_category}
                   onChange={handleInputChange}
+                  required
                 >
                   <option value="">Select Category</option>
                   <option value="Allopathy Doctor">Allopathy Doctor</option>
