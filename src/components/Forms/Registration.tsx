@@ -229,7 +229,7 @@ const RegistrationForm = ({ user, userData }: any) => {
             {/* Professional Information Section */}
             <div className="space-y-6 lg:space-y-4">
               <div>
-                <label className={labelClassName}>Work Category</label>
+                <label className={labelClassName}>Work Category *</label>
                 <select
                   name="work_category"
                   className={inputClassName}
