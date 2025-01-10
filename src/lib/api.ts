@@ -417,7 +417,7 @@ interface PaginationOptions {
       if (limit) params.append('limit', limit.toString());
       
       const queryString = params.toString();
-      const url = `${baseUrl}/api/categories/name/${category}${queryString ? `?${queryString}` : ''}`;
+      const url = `${baseUrl}/api/categories/${category}${queryString ? `?${queryString}` : ''}`;
       const response = await axios.get(url);
       if (response.data.success) {
         return {
